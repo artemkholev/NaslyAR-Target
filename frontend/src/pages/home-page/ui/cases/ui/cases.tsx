@@ -24,6 +24,8 @@ export const Cases = () => {
   ));
 
   const handlerSelectCase = (selectedCaseShow: Case) => {
+    selectedCase.isActive = false;
+    selectedCaseShow.isActive = true;
     setSelectedCase(selectedCaseShow);
   };
 
