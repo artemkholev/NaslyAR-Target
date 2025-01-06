@@ -1,22 +1,40 @@
 package main
 
 import (
- "github.com/gin-gonic/gin"
- "github.com/artemkholev/NaslyAR-Target/backend/initializers"
- "github.com/artemkholev/NaslyAR-Target/backend/routes"
+	"log"
+	"os"
+
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+	"backend/configs"
+	"backend/models"
+	"backend/routes"
 )
 
-func init() {
- initializers.LoadEnvVariables()
- initializers.ConnectDB()
-}
-
 func main() {
+	// Load environment variables
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
- r := gin.Default()
+	// Connect to the database
+	configs.ConnectDB()
 
- // Todo Routes
- routes.TodoRoutes(r)
+	// Run database migrations
+	err := configs.DB.AutoMigrate(&models.User{}, &models.Request{})
+	if err != nil {
+		log.Fatal("Migration failed:", err)
+	}
+	log.Println("Database migrated successfully!")
 
- r.Run()
+	// Initialize Gin router
+	r := gin.Default()
+	routes.SetupRoutes(r)
+
+	// Run the server
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	log.Fatal(r.Run(":" + port))
 }
