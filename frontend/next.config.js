@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const svg = require('@neodx/svg/webpack');
+const svg = require("@neodx/svg/webpack");
 
 const nextConfig = {
   images: {
     unoptimized: true,
-    domains: ['st.kp.yandex.net', 'avatars.mds.yandex.net', 'themoviedb.org'],
+    domains: ["st.kp.yandex.net", "avatars.mds.yandex.net", "themoviedb.org"],
   },
   env: {
     API_TOKEN: process.env.API_TOKEN,
@@ -18,14 +18,18 @@ const nextConfig = {
       config.plugins.push(
         svg({
           group: true,
-          root: 'src/shared/ui/icon/assets',
-          output: 'public/sprite',
+          root: "src/shared/ui/icon/assets",
+          output: "public/sprite",
           resetColors: false,
-          metadata: 'src/shared/ui/icon/sprite.h.ts',
+          metadata: "src/shared/ui/icon/sprite.h.ts",
         })
       );
     }
     return config;
+  },
+  i18n: {
+    defaultLocale: "ru",
+    locales: ["en", "ru"],
   },
 };
 

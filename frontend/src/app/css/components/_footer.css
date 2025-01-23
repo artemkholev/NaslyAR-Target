@@ -1,0 +1,5 @@
+.footer {
+  @apply w-full flex flex-row items-center justify-around bg-white/90 backdrop-blur-[10px] fixed bottom-0;
+  @apply min-h-[60px] !important;
+  height: calc(55px + (env(safe-area-inset-bottom)) * 1.1) !important;
+}

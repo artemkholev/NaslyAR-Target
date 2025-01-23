@@ -1,3 +1,3 @@
-import '@/app/styles/index.scss';
+import "@/app/css/app.css";
 
-export { default } from '@/app';
+export { default } from "@/app";

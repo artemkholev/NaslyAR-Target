@@ -6,7 +6,7 @@ import DiscountRightImg from '@/shared/assets/images/main-page/discount/right-im
 
 export const Discount = () => {
   return (
-    <article id='discount' className='relative w-full flex justify-center mb-10'>
+    <article id='discount' className='relative flex justify-center'>
       <Image
         className='absolute right-36 top-0 max-lg:right-0'
         src={DiscountRightImg}

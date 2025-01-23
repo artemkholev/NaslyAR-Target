@@ -1,0 +1,12 @@
+.header {
+  @apply flex justify-center z-[50] pt-[20px] pb-[80px];
+}
+
+.header__container {
+  @apply w-[1400px] max-2xl:w-[1000px] max-lg:w-[800px] max-md:w-[600px] max-sm:w-[400px] h-[60px];
+  @apply flex items-center justify-between bg-white  rounded-[30px] px-[25px];
+}
+
+.header__img {
+  @apply w-[36px] h-[36px] rounded-full object-cover;
+}

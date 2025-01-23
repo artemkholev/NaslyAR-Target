@@ -1,4 +1,5 @@
 import type { PropsWithChildren } from "react";
+import { Sidebar } from "@/features/sidebar/ui/Sidebar";
 import { Header } from "@/widgets/header";
 import { Footer } from "@/widgets/footer";
 import { useGate } from "effector-react";
@@ -17,9 +18,14 @@ export const BaseLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <Seo />
-      <Header />
-      <main className="main h-full">{children}</main>
-      <Footer />
+      <div className='flex'>
+        <Sidebar />
+        <div className='flex flex-col flex-grow'>
+          <Header />
+          <main className='main h-full'>{children}</main>
+          <Footer />
+        </div>
+      </div>
     </>
   );
 };
