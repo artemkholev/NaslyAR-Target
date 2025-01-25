@@ -1,37 +1,76 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Общие игнорируемые файлы и папки
 
-# dependencies
-/node_modules
-/.pnp
+# node.js
+node_modules/
+.yarn/
+.pnp
 .pnp.js
 .yarn/install-state.gz
 
 # testing
-/coverage
-
-# next.js
-/.next/
-/out/
+coverage/
+*.test.js
+*.test.ts
+*.test.tsx
 
 # production
-/build
+build/
+dist/
 
-# misc
+# Next.js (если используется)
+.next/
+out/
+
+# временные файлы и конфигурации
 .DS_Store
 *.pem
+*.log
+*.lock
+*.swp
+*.swo
 
-# debug
+# environment files
+.env*
+.env.local
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel и Netlify
+.vercel/
+.netlify/
+
+# Yarn и npm debug-файлы
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local 
-.env
+# IDE (например, VSCode, WebStorm)
+.idea/
+.vscode/
+*.iml
+*.sublime-project
+*.sublime-workspace
 
-# vercel
-.vercel
+# Git временные файлы
+*.orig
+*.rej
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Package manager временные файлы
+package-lock.json
+yarn.lock
+
+# Static file cache
+.cache/
+
+# Windows специфичные файлы
+Thumbs.db
+Desktop.ini
+
+# Linux специфичные файлы
+*.pid
+
+# Mac специфичные файлы
+.AppleDouble
+.LSOverride
