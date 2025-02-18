@@ -1,0 +1,58 @@
+.page {
+  @apply w-full max-w-full h-full overflow-y-auto relative;
+  @apply flex flex-col justify-between items-center;
+}
+
+.page__container {
+  @apply h-full flex flex-auto flex-col gap-4 relative;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.page__box {
+  @apply flex flex-col justify-center gap-5;
+}
+
+.page .p-divider {
+  @apply m-0;
+}
+
+/* /////// Управление header-ом страницы - Реализация в шаблоне через компонент PageHeader */
+
+.page__header-icon {
+  @apply w-[20px] h-[20px] cursor-pointer absolute left-4;
+}
+
+.page__header--default {
+  @apply flex items-center absolute right-4;
+}
+
+/* /////// media requests */
+.page__container {
+  @apply w-[1400px];
+}
+
+@media (max-width: 1536px) {
+  .page__container {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .page__container {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page__container {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page__container {
+    max-width: 400px;
+  }
+}

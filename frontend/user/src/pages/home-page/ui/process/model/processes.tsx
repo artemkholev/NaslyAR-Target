@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 
 import ProcessFirstElem from "@/shared/assets/images/main-page/process/first-elem.png";
 import ProcessSecondElem from "@/shared/assets/images/main-page/process/second-elem.png";
@@ -40,38 +40,38 @@ const ProcessesListComponent = ({ processes }: { processes: Processes[] }) => {
 };
 
 export const ProcessesList = () => {
-  const { t } = useTranslation("library");
+  // const { t } = useTranslation("library");
 
-  const processes: Processes[] = [
-    {
-      id: 0,
-      bgColor: "#E7F0F4",
-      text: t("home_page.process.process_1"),
-      img: ProcessFirstElem,
-      alt: t("home_page.process.process_1"),
-    },
-    {
-      id: 1,
-      bgColor: "#E1F0F5",
-      text: t("home_page.process.process_2"),
-      img: ProcessSecondElem,
-      alt: t("home_page.process.process_2"),
-    },
-    {
-      id: 2,
-      bgColor: "#C1D2F9",
-      text: t("home_page.process.process_3"),
-      img: ProcessThirdElem,
-      alt: t("home_page.process.process_3"),
-    },
-    {
-      id: 3,
-      bgColor: "#86BFD9",
-      text: t("home_page.process.process_4"),
-      img: ProcessFourthElem,
-      alt: t("home_page.process.process_4"),
-    },
-  ];
+  // const processes: Processes[] = [
+  //   {
+  //     id: 0,
+  //     bgColor: "#E7F0F4",
+  //     text: t("home_page.process.process_1"),
+  //     img: ProcessFirstElem,
+  //     alt: t("home_page.process.process_1"),
+  //   },
+  //   {
+  //     id: 1,
+  //     bgColor: "#E1F0F5",
+  //     text: t("home_page.process.process_2"),
+  //     img: ProcessSecondElem,
+  //     alt: t("home_page.process.process_2"),
+  //   },
+  //   {
+  //     id: 2,
+  //     bgColor: "#C1D2F9",
+  //     text: t("home_page.process.process_3"),
+  //     img: ProcessThirdElem,
+  //     alt: t("home_page.process.process_3"),
+  //   },
+  //   {
+  //     id: 3,
+  //     bgColor: "#86BFD9",
+  //     text: t("home_page.process.process_4"),
+  //     img: ProcessFourthElem,
+  //     alt: t("home_page.process.process_4"),
+  //   },
+  // ];
 
-  return <ProcessesListComponent processes={processes} />;
+  // return <ProcessesListComponent processes={processes} />;
 };

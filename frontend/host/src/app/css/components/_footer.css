@@ -1,0 +1,34 @@
+.footer {
+  @apply w-full flex flex-row items-center justify-around bg-white/90 backdrop-blur-[10px] fixed bottom-0;
+  @apply min-h-[60px] !important;
+  height: calc(55px + (env(safe-area-inset-bottom)) * 1.1) !important;
+}
+
+/* /////// media requests */
+.footer {
+  @apply w-[1400px];
+}
+
+@media (max-width: 1536px) {
+  .footer {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    max-width: 400px;
+  }
+}

@@ -1,8 +1,0 @@
-{
-  "devDependencies": {
-    "concurrently": "^9.1.2"
-  },
-  "scripts": {
-    "dev": "concurrently -n 'admin,client,auth,host' -c 'blue,green,yellow,red' \"yarn dev --prefix admin-panel\" \"yarn dev --prefix client-app\" \"yarn dev --prefix auth-module\" \"yarn dev --prefix microfrontend-host\""
-  }
-}

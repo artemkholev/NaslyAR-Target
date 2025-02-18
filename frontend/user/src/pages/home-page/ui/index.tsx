@@ -1,20 +1,21 @@
+import React from "react";
 import { MainInfo } from "./main-info";
-import { Goals } from "./goals";
-import { Process } from "./process";
-import { Ivocation } from "./ivocation";
-import { Price } from "./price";
-import { Discount } from "./discount";
-import { Cases } from "./cases";
-import { Quations } from "./quations";
-import { Connection } from "./connection";
+// import { Goals } from "./goals";
+// import { Process } from "./process";
+// import { Ivocation } from "./ivocation";
+// import { Price } from "./price";
+// import { Discount } from "./discount";
+// import { Cases } from "./cases";
+// import { Quations } from "./quations";
+// import { Connection } from "./connection";
 // import { Request } from './request';
 
-export const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <div className='page'>
       <div className='page__container'>
         <MainInfo />
-        <Goals />
+        {/* <Goals />
         <Process />
         <Ivocation />
         <Price />
@@ -22,8 +23,10 @@ export const HomePage = () => {
         <Cases />
         <Quations />
         <Connection />
-        {/* <Request /> */}
+        <Request /> */}
       </div>
     </div>
   );
 };
+
+export default HomePage;

@@ -1,0 +1,23 @@
+html {
+  @apply h-full;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body {
+  @apply h-full;
+  background-color: #f3f3f3;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+div#root {
+  @apply h-screen w-full flex flex-col container mx-auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
