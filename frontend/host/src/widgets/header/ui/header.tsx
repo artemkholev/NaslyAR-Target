@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
   ));
 
   return (
-    <header className='header'>
+    <header className='header' >
       <div className='header__container'>
         <div className='flex items-center gap-10'>
           <a href='/'>

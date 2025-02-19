@@ -16,7 +16,7 @@ body::-webkit-scrollbar {
   height: 0;
 }
 
-div#root {
+div#app {
   @apply h-screen w-full flex flex-col container mx-auto;
   -ms-overflow-style: none;
   scrollbar-width: none;

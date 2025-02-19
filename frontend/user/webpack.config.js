@@ -1,3 +1,4 @@
+const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
@@ -26,6 +27,9 @@ module.exports = (env, argv) => {
     },
 
     resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+      },
       extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
     },
 
@@ -33,11 +37,10 @@ module.exports = (env, argv) => {
       hot: true,
       port: configs[argv.mode].PORT,
       historyApiFallback: true,
-      allowedHosts: 'all',
+      allowedHosts: "all",
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers':
-          'Origin, X-Requested-With, Content-Type, Accept',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
       },
     },
 
@@ -72,7 +75,7 @@ module.exports = (env, argv) => {
           container: configs[argv.mode].CONTAINER_PATH,
         },
         exposes: {
-          './TestPage': './src/pages/test/index.tsx',
+          "./TestPage": "./src/pages/test/index.tsx",
         },
         shared: {
           ...deps,

@@ -1,8 +1,10 @@
+const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const deps = require("./package.json").dependencies;
 
 const configs = {
-  appName: "container",
+  appName: "host",
   appFileName: "remoteEntry.js",
   development: {
     PUBLIC_PATH: "http://localhost:3000/",
@@ -16,20 +18,22 @@ const configs = {
   },
 };
 
-const deps = require("./package.json").dependencies;
-
 module.exports = (env, argv) => {
   console.log({ env, argv, configs: configs[argv.mode] });
 
   return {
+    entry: "./src/index.ts",
     output: {
+      path: path.resolve(__dirname, "dist"),
       publicPath: configs[argv.mode].PUBLIC_PATH,
+      clean: true,
     },
-
     resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+      },
       extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
     },
-
     devServer: {
       hot: true,
       port: configs[argv.mode].PORT,
@@ -37,13 +41,36 @@ module.exports = (env, argv) => {
       allowedHosts: "all",
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
       },
     },
-
     module: {
       rules: [
+        {
+          test: /\.css$/,
+          use: [
+            "style-loader",
+            {
+              loader: "css-loader",
+              options: { importLoaders: 1 },
+            },
+            "postcss-loader",
+          ],
+        },
+        {
+          test: /\.svg$/,
+          type: "asset/resource",
+          generator: {
+            filename: "icons/[name][ext]",
+          },
+        },
+        {
+          test: /\.(woff(2)?|ttf|eot|otf)$/,
+          type: "asset/resource",
+          generator: {
+            filename: "fonts/[name][ext]",
+          },
+        },
         {
           test: /\.m?js/,
           type: "javascript/auto",
@@ -52,19 +79,12 @@ module.exports = (env, argv) => {
           },
         },
         {
-          test: /\.(css|s[ac]ss)$/i,
-          use: ["style-loader", "css-loader", "postcss-loader"],
-        },
-        {
           test: /\.(ts|tsx|js|jsx)$/,
           exclude: /node_modules/,
-          use: {
-            loader: "babel-loader",
-          },
+          use: "babel-loader",
         },
       ],
     },
-
     plugins: [
       new ModuleFederationPlugin({
         name: configs.appName,
@@ -80,18 +100,12 @@ module.exports = (env, argv) => {
         },
         shared: {
           ...deps,
-          react: {
-            singleton: true,
-            requiredVersion: deps.react,
-          },
-          "react-dom": {
-            singleton: true,
-            requiredVersion: deps["react-dom"],
-          },
+          react: { singleton: true, requiredVersion: deps.react },
+          "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
         },
       }),
       new HtmlWebPackPlugin({
-        template: "./src/index.html",
+        template: "./public/index.html",
       }),
     ],
   };

@@ -1,72 +1,59 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  safelist: [
-    // width
-    { pattern: /w-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /w-\d+\/\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    // height
-    { pattern: /h-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /h-\d+\/\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    // padding
-    { pattern: /p-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /px-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /py-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /pt-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /pr-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /pb-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /pl-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    // margin
-    { pattern: /m-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /mx-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /my-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /mt-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /mr-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /mb-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /ml-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    // gap
-    { pattern: /gap-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /gap-x-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /gap-y-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    // space
-    { pattern: /space-x-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /space-y-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-
-    // text
-    { pattern: /text/ },
-
-    // !important text
-    { pattern: /!text/ },
-
-    // background
-    { pattern: /bg/ },
-
-    // !important bg
-    { pattern: /!bg/ },
-
-    // grid & row
-    { pattern: /grid/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /grid-cols-\d+/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    {
-      pattern: /grid-cols-none/,
-      variants: ["sm", "md", "lg", "xl", "desktop"],
-    },
-
-    // flex
-    { pattern: /flex/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /justify/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-    { pattern: /items/, variants: ["sm", "md", "lg", "xl", "desktop"] },
-
-    // rounded
-    { pattern: /rounded/ },
-    { pattern: /rounded-none/ },
-
-    // border
-    { pattern: /border/ },
-    { pattern: /border-0/ },
-  ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "white-100%": "#FFFFFF",
+        "white-90%": "#FFFFFFE5",
+        "white-80%": "#FFFFFFCC",
+        "black-900": "#101010",
+        "black-800": "#333333",
+        "black-700": "#434343",
+        "black-600": "#777777",
+        "black-400": "#bdbdbd",
+        "black-100": "#F7F7F7",
+        "black-15%": "#00000026",
+        "black-2%": "#00000005",
+        "blue-900": "#0A5BFF",
+        "blue-800": "#3275FE",
+        "blue-300": "#C2D6FF",
+        "blue-100": "#EEF4FF",
+        "blue-60%": "#3275FE99",
+        "red-900": "#FE3232",
+        "red-100": "#FFEBEB",
+        "red-50%": "#FE323280",
+        "orange-900": "#FEC532",
+        "orange-100": "#FFF9EA",
+        "orange-50%": "#FEC532",
+        "green-900": "#07A300",
+        "green-100": "#DAF1D9",
+        "green-50%": "#07A30080",
+        "violet-900": "#B032FE",
+        "violet-100": "#F6E7FF",
+        "violet-50%": "#B032FE80",
+        "purple-100": "#C076ED",
+        "purple-50%": "#C076ED80",
+      },
+      fontFamily: {
+        "inter-400": ["Inter-400"],
+        "inter-500": ["Inter-500"],
+        "inter-600": ["Inter-600"],
+      },
+      backgroundImage: {
+        "gradient-bg": "linear-gradient(90deg, #7BD5F5, #787FF6, #50c1e4, #6ecaff)",
+      },
+      animation: {
+        "bg-gradient": "bg-gradient 8s ease infinite",
+      },
+      keyframes: {
+        "bg-gradient": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+      },
+    },
   },
   plugins: [],
 };
