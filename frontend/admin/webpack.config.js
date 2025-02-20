@@ -7,14 +7,14 @@ const configs = {
   appName: "remote",
   appFileName: "remoteEntry.js",
   development: {
-    PUBLIC_PATH: "http://localhost:3001/",
+    PUBLIC_PATH: "http://localhost:3004/",
     CONTAINER_PATH: "container@http://localhost:3000/remoteEntry.js",
-    PORT: 3001,
+    PORT: 3004,
   },
   production: {
-    PUBLIC_PATH: "http://localhost:3001/",
+    PUBLIC_PATH: "http://localhost:3004/",
     CONTAINER_PATH: "container@http://localhost:3000/remoteEntry.js",
-    PORT: 3001,
+    PORT: 3004,
   },
 };
 
@@ -33,11 +33,10 @@ module.exports = (env, argv) => {
       hot: true,
       port: configs[argv.mode].PORT,
       historyApiFallback: true,
-      allowedHosts: 'all',
+      allowedHosts: "all",
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers':
-          'Origin, X-Requested-With, Content-Type, Accept',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
       },
     },
 
@@ -71,9 +70,7 @@ module.exports = (env, argv) => {
         remotes: {
           container: configs[argv.mode].CONTAINER_PATH,
         },
-        exposes: {
-          './TestPage': './src/pages/test/index.tsx',
-        },
+        exposes: {},
         shared: {
           ...deps,
           react: {

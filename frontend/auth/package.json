@@ -1,5 +1,5 @@
 {
-  "name": "remote",
+  "name": "auth",
   "version": "0.1.0",
   "scripts": {
     "build": "webpack --mode production",
@@ -9,8 +9,8 @@
     "start:live": "webpack serve --open --mode development --live-reload --hot"
   },
   "author": {
-    "name": "Serif Colakel",
-    "email": "serifcolakel0@gmail.com"
+    "name": "Artem Kholev",
+    "email": "artemkholev@yandex.ru"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
