@@ -1,7 +1,4 @@
 {
   "name": "container",
-  "exposes": {
-    "./Button": "./src/components/Button.tsx",
-    "./types/storeState": "./src/types/storeState.ts"
-  }
+  "exposes": {}
 }

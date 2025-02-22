@@ -1,12 +1,12 @@
 import "./css/index.css";
 import React, { Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, data, Route, Routes } from "react-router-dom";
 import { BaseLayout } from "@/widgets/layouts";
 import ReactDOM from "react-dom/client";
 import { withProviders } from "./providers";
 import("@/shared/lib/i18n");
 // Ленивая загрузка компонентов
-// const AuthPage = React.lazy(() => import("auth/AuthPage"));
+const AuthPage = React.lazy(() => import("auth/AuthPage"));
 // const UserPage = React.lazy(() => import("user/UserPage"));
 
 const App: React.FC = () => (
@@ -18,19 +18,18 @@ const App: React.FC = () => (
           path='/'
           element={<Suspense fallback={<div>Загрузка...</div>}>{<UserPage />}</Suspense>}
         /> */}
-        {/* <Route
-          path="/auth"
+        <Route
+          path='/login'
           element={
             <Suspense fallback={<div>Загрузка...</div>}>
               <AuthPage />
             </Suspense>
           }
-        /> */}
+        />
       </Route>
     </Routes>
   </BrowserRouter>
 );
-
 
 // Оборачиваем App с помощью withProviders
 const AppWithProviders = withProviders(App);
@@ -49,4 +48,3 @@ root.render(
     <AppWithProviders />
   </React.StrictMode>
 );
-

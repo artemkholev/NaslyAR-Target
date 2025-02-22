@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+
 const deps = require("./package.json").dependencies;
 
 const configs = {
@@ -8,12 +9,20 @@ const configs = {
   appFileName: "remoteEntry.js",
   development: {
     PUBLIC_PATH: "http://localhost:3000/",
-    REMOTE_PATH: "remote@http://localhost:3001/remoteEntry.js",
+    REMOTE_PATHS: {
+      user: "user@http://localhost:3001/remoteEntry.js",
+      admin: "admin@http://localhost:3002/remoteEntry.js",
+      auth: "auth@http://localhost:3003/remoteEntry.js",
+    },
     PORT: 3000,
   },
   production: {
     PUBLIC_PATH: "http://localhost:3000/",
-    REMOTE_PATH: "remote@http://localhost:3001/remoteEntry.js",
+    REMOTE_PATHS: {
+      user: "user@http://localhost:3001/remoteEntry.js",
+      admin: "admin@http://localhost:3002/remoteEntry.js",
+      auth: "auth@http://localhost:3003/remoteEntry.js",
+    },
     PORT: 3000,
   },
 };
@@ -89,14 +98,12 @@ module.exports = (env, argv) => {
       new ModuleFederationPlugin({
         name: configs.appName,
         filename: configs.appFileName,
+        // remotes: configs[argv.mode].REMOTE_PATH,
         remotes: {
-          remote: configs[argv.mode].REMOTE_PATH,
+          auth: "auth@http://localhost:3003/remoteEntry.js"
         },
         exposes: {
-          "./Button": "./src/components/Button.tsx",
-          "./hooks/useStore": "./src/hooks/useStore.ts",
-          "./hooks/useStoreSelector": "./src/hooks/useStoreSelector.ts",
-          "./providers/StoreProvider": "./src/providers/StoreProvider.tsx",
+          "./providers/store-provider": "./src/app/providers/StoreProvider.tsx",
         },
         shared: {
           ...deps,

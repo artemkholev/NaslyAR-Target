@@ -1,3 +1,3 @@
-import("./App");
+import("./app/App");
 
-export default import("./App");
+export default import("./app/App");

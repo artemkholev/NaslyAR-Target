@@ -1,19 +1,20 @@
+const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
 
 const configs = {
-  appName: "remote",
+  appName: "auth",
   appFileName: "remoteEntry.js",
   development: {
     PUBLIC_PATH: "http://localhost:3003/",
-    CONTAINER_PATH: "container@http://localhost:3000/remoteEntry.js",
+    CONTAINER_PATH: "host@http://localhost:3000/remoteEntry.js",
     PORT: 3003,
   },
   production: {
     PUBLIC_PATH: "http://localhost:3003/",
-    CONTAINER_PATH: "container@http://localhost:3000/remoteEntry.js",
+    CONTAINER_PATH: "host@http://localhost:3000/remoteEntry.js",
     PORT: 3003,
   },
 };
@@ -21,11 +22,15 @@ const configs = {
 module.exports = (env, argv) => {
   console.log({ env, argv, configs: configs[argv.mode] });
   return {
+    entry: "./src/index.ts",
     output: {
       publicPath: configs[argv.mode].PUBLIC_PATH,
     },
 
     resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+      },
       extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
     },
 
@@ -43,6 +48,31 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
+          test: /\.css$/,
+          use: [
+            "style-loader",
+            {
+              loader: "css-loader",
+              options: { importLoaders: 1 },
+            },
+            "postcss-loader",
+          ],
+        },
+        {
+          test: /\.svg$/,
+          type: "asset/resource",
+          generator: {
+            filename: "icons/[name][ext]",
+          },
+        },
+        {
+          test: /\.(woff(2)?|ttf|eot|otf)$/,
+          type: "asset/resource",
+          generator: {
+            filename: "fonts/[name][ext]",
+          },
+        },
+        {
           test: /\.m?js/,
           type: "javascript/auto",
           resolve: {
@@ -50,15 +80,9 @@ module.exports = (env, argv) => {
           },
         },
         {
-          test: /\.(css|s[ac]ss)$/i,
-          use: ["style-loader", "css-loader", "postcss-loader"],
-        },
-        {
           test: /\.(ts|tsx|js|jsx)$/,
           exclude: /node_modules/,
-          use: {
-            loader: "babel-loader",
-          },
+          use: "babel-loader",
         },
       ],
     },
@@ -70,21 +94,17 @@ module.exports = (env, argv) => {
         remotes: {
           container: configs[argv.mode].CONTAINER_PATH,
         },
-        exposes: {},
+        exposes: {
+          "./AuthPage": "./src/pages/auth-page/ui/AuthPage.tsx",
+        },
         shared: {
           ...deps,
-          react: {
-            singleton: true,
-            requiredVersion: deps.react,
-          },
-          "react-dom": {
-            singleton: true,
-            requiredVersion: deps["react-dom"],
-          },
+          react: { singleton: true, requiredVersion: deps.react },
+          "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
         },
       }),
       new HtmlWebPackPlugin({
-        template: "./src/index.html",
+        template: "./public/index.html",
       }),
     ],
   };

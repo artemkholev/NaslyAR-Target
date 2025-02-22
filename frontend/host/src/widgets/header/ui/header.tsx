@@ -31,12 +31,14 @@ export const Header: React.FC = () => {
           </nav>
         </div>
 
-        <div>
+        <div className="flex gap-5 items-center">
           <a className='flex items-center gap-3 max-md:hidden' href='tel:+79302406554'>
             <span className='typography__title--medium'>{t("common.company_phone")}</span>
 
             <img className='header__img' src={TgIcon} alt='phone' />
           </a>
+
+          <a href="/login">Login / Registration</a>
 
           <button
             type='button'
