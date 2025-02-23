@@ -1,8 +1,8 @@
 import "./css/index.css";
 import React, { Suspense } from "react";
-import { BrowserRouter, data, Route, Routes } from "react-router-dom";
-import { BaseLayout } from "@/widgets/layouts";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import ReactDOM from "react-dom/client";
+import { BaseLayout } from "@/widgets/layouts";
 import { withProviders } from "./providers";
 import("@/shared/lib/i18n");
 // Ленивая загрузка компонентов
@@ -19,7 +19,7 @@ const App: React.FC = () => (
           element={<Suspense fallback={<div>Загрузка...</div>}>{<UserPage />}</Suspense>}
         /> */}
         <Route
-          path='/login'
+          path='auth'
           element={
             <Suspense fallback={<div>Загрузка...</div>}>
               <AuthPage />

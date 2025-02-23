@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
+const Dotenv = require("dotenv-webpack");
 const deps = require("./package.json").dependencies;
 
 const configs = {
@@ -95,12 +96,17 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+      new Dotenv({
+        path: path.resolve(__dirname, ".env"), // explicitly specify the .env path
+        safe: false, // set to true if you use .env.example
+        systemvars: true, // load system environment variables as well
+      }),
       new ModuleFederationPlugin({
         name: configs.appName,
         filename: configs.appFileName,
         // remotes: configs[argv.mode].REMOTE_PATH,
         remotes: {
-          auth: "auth@http://localhost:3003/remoteEntry.js"
+          auth: "auth@http://localhost:3003/remoteEntry.js",
         },
         exposes: {
           "./providers/store-provider": "./src/app/providers/StoreProvider.tsx",

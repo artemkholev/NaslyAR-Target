@@ -38,7 +38,8 @@ export const Header: React.FC = () => {
             <img className='header__img' src={TgIcon} alt='phone' />
           </a>
 
-          <a href="/login">Login / Registration</a>
+          <a href="/auth">Login / Registration</a>
+          <a href="/admin">Admin</a>
 
           <button
             type='button'

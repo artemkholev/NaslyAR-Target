@@ -22,7 +22,6 @@ const configs = {
 module.exports = (env, argv) => {
   console.log({ env, argv, configs: configs[argv.mode] });
   return {
-    entry: "./src/index.ts",
     output: {
       publicPath: configs[argv.mode].PUBLIC_PATH,
     },
@@ -96,6 +95,7 @@ module.exports = (env, argv) => {
         },
         exposes: {
           "./AuthPage": "./src/pages/auth-page/ui/AuthPage.tsx",
+          "./AuthProvider": "./src/app/providers/AuthProvider.tsx",
         },
         shared: {
           ...deps,

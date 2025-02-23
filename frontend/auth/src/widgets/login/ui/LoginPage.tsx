@@ -1,41 +1,42 @@
+import { useAuth } from "@/features/auth/hooks/useAuth";
 import React, { useState } from "react";
-import { useAuth } from "@/shared/types/context";
-import { useNavigate } from "react-router-dom";
 
-export const LoginForm = () => {
-  const [email, setEmail] = useState("");
+export const LoginPage = () => {
+  const { login, loading, error } = useAuth();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
-  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const fakeToken = "fake-jwt-token";
-    login(fakeToken);
-    navigate("/dashboard");
+    await login({ username, password });
   };
 
   return (
-    <form onSubmit={handleSubmit} className='p-4 max-w-md mx-auto'>
-      <h2 className='text-xl font-semibold mb-4'>Вход</h2>
-      <input
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder='Email'
-        className='block w-full p-2 mb-2 border rounded'
-        required
-      />
-      <input
-        type='password'
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder='Пароль'
-        className='block w-full p-2 mb-2 border rounded'
-        required
-      />
-      <button type='submit' className='w-full bg-blue-500 text-white py-2 rounded'>
-        Войти
-      </button>
-    </form>
+    <div className='flex flex-col items-center justify-center h-screen'>
+      <form onSubmit={handleSubmit} className='w-96 p-6 bg-white shadow-lg rounded-2xl'>
+        <h2 className='text-xl font-semibold mb-4 text-center'>Вход</h2>
+        <input
+          type='text'
+          placeholder='Логин'
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className='w-full p-2 border rounded mb-4'
+        />
+        <input
+          type='password'
+          placeholder='Пароль'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className='w-full p-2 border rounded mb-4'
+        />
+        {error && <p className='text-red-500 text-sm mb-2'>{error}</p>}
+        <button
+          type='submit'
+          disabled={loading}
+          className='w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600'>
+          {loading ? "Загрузка..." : "Войти"}
+        </button>
+      </form>
+    </div>
   );
 };

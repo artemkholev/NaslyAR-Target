@@ -1,4 +1,3 @@
-/* eslint-disable */
 /// <reference types="react" />
 
 declare module "remote/TestPage" {
