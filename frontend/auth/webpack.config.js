@@ -1,5 +1,4 @@
 const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
@@ -48,14 +47,7 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.css$/,
-          use: [
-            "style-loader",
-            {
-              loader: "css-loader",
-              options: { importLoaders: 1 },
-            },
-            "postcss-loader",
-          ],
+          use: ["style-loader", "css-loader", "postcss-loader"],
         },
         {
           test: /\.svg$/,
@@ -95,16 +87,12 @@ module.exports = (env, argv) => {
         },
         exposes: {
           "./AuthPage": "./src/pages/auth-page/ui/AuthPage.tsx",
-          "./AuthProvider": "./src/app/providers/AuthProvider.tsx",
         },
         shared: {
           ...deps,
           react: { singleton: true, requiredVersion: deps.react },
           "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
         },
-      }),
-      new HtmlWebPackPlugin({
-        template: "./public/index.html",
       }),
     ],
   };

@@ -1,6 +1,6 @@
 import "./css/index.css";
 import React, { Suspense } from "react";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import { BaseLayout } from "@/widgets/layouts";
 import { withProviders } from "./providers";

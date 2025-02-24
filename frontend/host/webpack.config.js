@@ -34,6 +34,7 @@ module.exports = (env, argv) => {
   return {
     entry: "./src/index.ts",
     output: {
+      filename: "bundle.js",
       path: path.resolve(__dirname, "dist"),
       publicPath: configs[argv.mode].PUBLIC_PATH,
       clean: true,
@@ -46,6 +47,9 @@ module.exports = (env, argv) => {
     },
     devServer: {
       hot: true,
+      static: {
+        directory: path.join(__dirname, "public"),
+      },
       port: configs[argv.mode].PORT,
       historyApiFallback: true,
       allowedHosts: "all",
@@ -62,7 +66,7 @@ module.exports = (env, argv) => {
             "style-loader",
             {
               loader: "css-loader",
-              options: { importLoaders: 1 },
+              options: { importLoaders: 1, sourceMap: true },
             },
             "postcss-loader",
           ],
@@ -109,7 +113,7 @@ module.exports = (env, argv) => {
           auth: "auth@http://localhost:3003/remoteEntry.js",
         },
         exposes: {
-          "./providers/store-provider": "./src/app/providers/StoreProvider.tsx",
+          "./useAuth": "./src/features/auth/hooks/useAuth.ts"
         },
         shared: {
           ...deps,
