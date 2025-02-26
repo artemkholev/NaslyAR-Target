@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
   return (
     <div className='page'>
       <div className='page__container'>
-        <MainInfo />
+        {/* <MainInfo /> */}
         {/* <Goals />
         <Process />
         <Ivocation />

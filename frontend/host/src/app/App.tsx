@@ -7,17 +7,16 @@ import { withProviders } from "./providers";
 import("@/shared/lib/i18n");
 // Ленивая загрузка компонентов
 const AuthPage = React.lazy(() => import("auth/AuthPage"));
-// const UserPage = React.lazy(() => import("user/UserPage"));
+const UserPage = React.lazy(() => import("@/pages/home-page"));
 
 const App: React.FC = () => (
   <BrowserRouter>
     <Routes>
       <Route path='/' element={<BaseLayout />}>
-        {/* <Route index element={<HomePage />} /> */}
-        {/* <Route
+        <Route
           path='/'
           element={<Suspense fallback={<div>Загрузка...</div>}>{<UserPage />}</Suspense>}
-        /> */}
+        />
         <Route
           path='auth'
           element={

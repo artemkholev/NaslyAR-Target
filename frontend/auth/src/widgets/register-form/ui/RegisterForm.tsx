@@ -40,7 +40,7 @@ export const RegisterForm = () => {
         className='border p-2 rounded-xl w-full'
         required
       />
-      <button type='submit' className='bg-green-500 text-white py-2 rounded-2xl hover:bg-green-600'>
+      <button type='submit' className='bg-gradient-bg text-white py-2 rounded-2xl'>
         Зарегистрироваться
       </button>
     </form>

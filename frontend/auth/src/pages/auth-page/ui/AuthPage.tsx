@@ -8,19 +8,19 @@ const AuthPage = () => {
 
   return (
     <div className='page'>
-      <div className="page__container">
-        <div className='w-20 flex flex-col items-center gap-6 p-6'>
-          <div className='w-full flex gap-4'>
+      <div className="page__container justify-center items-center">
+        <div className='w-96 flex flex-col items-center gap-6 p-6'>
+          <div className='w-full flex justify-center gap-4'>
             <button
               className={`px-4 py-2 rounded-2xl shadow text-base font-medium ${
-                activeForm === "login" ? "bg-blue-500 text-white" : "bg-gray-200"
+                activeForm === "login" ? "bg-[#797EF6] text-white" : "bg-gray-200"
               }`}
               onClick={() => setActiveForm("login")}>
               Войти
             </button>
             <button
               className={`px-4 py-2 rounded-2xl shadow text-base font-medium ${
-                activeForm === "register" ? "bg-blue-500 text-white" : "bg-gray-200"
+                activeForm === "register" ? "bg-[#797EF6] text-white" : "bg-gray-200"
               }`}
               onClick={() => setActiveForm("register")}>
               Зарегистрироваться

@@ -1,1 +1,3 @@
-import "./app/css/index.css"
+import("@/app/App");
+
+export default import("@/app/App");

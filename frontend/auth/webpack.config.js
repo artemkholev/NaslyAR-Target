@@ -1,5 +1,6 @@
 const path = require("path");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const deps = require("./package.json").dependencies;
 
@@ -21,6 +22,7 @@ const configs = {
 module.exports = (env, argv) => {
   console.log({ env, argv, configs: configs[argv.mode] });
   return {
+    entry: "./src/index.ts",
     output: {
       publicPath: configs[argv.mode].PUBLIC_PATH,
     },
@@ -46,8 +48,20 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
+          test: /\.(ts|tsx|js|jsx)$/,
+          exclude: /node_modules/,
+          use: "babel-loader",
+        },
+        {
           test: /\.css$/,
-          use: ["style-loader", "css-loader", "postcss-loader"],
+          use: [
+            "style-loader",
+            {
+              loader: "css-loader",
+              options: { importLoaders: 1, sourceMap: true },
+            },
+            "postcss-loader",
+          ],
         },
         {
           test: /\.svg$/,
@@ -70,11 +84,6 @@ module.exports = (env, argv) => {
             fullySpecified: false,
           },
         },
-        {
-          test: /\.(ts|tsx|js|jsx)$/,
-          exclude: /node_modules/,
-          use: "babel-loader",
-        },
       ],
     },
 
@@ -93,6 +102,9 @@ module.exports = (env, argv) => {
           react: { singleton: true, requiredVersion: deps.react },
           "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
         },
+      }),
+      new HtmlWebPackPlugin({
+        template: "./public/index.html",
       }),
     ],
   };

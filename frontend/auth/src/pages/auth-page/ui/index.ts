@@ -1,1 +1,3 @@
-export { default } from "./AuthPage";
+import AuthPage from "./AuthPage";
+
+export { AuthPage };
