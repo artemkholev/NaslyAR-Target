@@ -1,1 +1,1 @@
-export { Goals } from './ui/goals';
+export { Goals } from "./ui/goals";

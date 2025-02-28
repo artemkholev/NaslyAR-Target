@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useAuth } from "host/useAuth";
+// import { useAuth } from "host/useAuth";
 
 export const LoginForm = () => {
-  const { login, accessToken } = useAuth();
+  // const { login, accessToken } = useAuth();
   const [loginInput, setLoginInput] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,8 +14,8 @@ export const LoginForm = () => {
     setError(null);
 
     try {
-      await login(loginInput, password);
-      console.log("✅ Login successful! Access Token:", accessToken);
+      // await login(loginInput, password);
+      // console.log("✅ Login successful! Access Token:", accessToken);
     } catch (err) {
       console.error("❌ Login failed:", err);
       setError("Неверный логин или пароль");
@@ -53,9 +53,9 @@ export const LoginForm = () => {
             {loading ? "Входим..." : "Войти"}
           </button>
         </form>
-        {accessToken && (
+        {/* {accessToken && (
           <p className='text-green-600 text-sm text-center mt-4'>Успешный вход! ✅</p>
-        )}
+        )} */}
       </div>
     </div>
   );
