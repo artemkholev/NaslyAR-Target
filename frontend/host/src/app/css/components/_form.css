@@ -1,0 +1,33 @@
+.form {
+  @apply flex flex-col p-4 w-full relative gap-3 justify-between;
+  @apply p-[16px] bg-[var(--main-bg)] rounded-[15px];
+  @apply shadow-regular;
+}
+
+.form:has(.form__action-button-container) {
+  @apply flex-auto;
+}
+
+.form__label {
+  @apply typography__title--small;
+}
+
+.form__record {
+  @apply flex flex-col w-full justify-between gap-2;
+}
+
+.form__fields {
+  @apply flex flex-col flex-auto gap-3 w-full h-auto;
+}
+
+.form__required-indicator {
+  @apply text-[var(--text-red)];
+}
+
+.form__action-button-container {
+  @apply flex items-center w-full h-[48px] min-h-[48px] pb-3;
+}
+
+.form__action-button {
+  @apply flex items-center justify-end p-2 w-full h-[48px];
+}

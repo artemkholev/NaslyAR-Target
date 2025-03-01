@@ -6,7 +6,7 @@ import { Footer } from "@/widgets/footer";
 
 export const BaseLayout: React.FC = () => {
   return (
-    <div>
+    <>
       {/* <Sidebar /> */}
       <div className='flex flex-col flex-grow'>
         <Header />
@@ -15,6 +15,6 @@ export const BaseLayout: React.FC = () => {
         </main>
         <Footer />
       </div>
-    </div>
+    </>
   );
 };

@@ -1,0 +1,8 @@
+.box {
+  @apply p-[16px] bg-[var(--main-bg)] rounded-[15px];
+  @apply shadow-regular;
+}
+
+.tab-box {
+  @apply rounded-[15px] bg-[var(--secondary-bg-black)] p-1;
+}

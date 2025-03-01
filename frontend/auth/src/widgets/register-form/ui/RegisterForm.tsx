@@ -15,7 +15,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col gap-[8px] w-full'>
+    <form onSubmit={handleSubmit} className='form'>
       <input
         type='email'
         placeholder='Email'
