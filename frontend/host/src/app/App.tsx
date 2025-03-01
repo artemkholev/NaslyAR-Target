@@ -43,7 +43,7 @@ if (!rootElement) {
 // Создаем корень и рендерим приложение
 const root = ReactDOM.createRoot(rootElement);
 root.render(
-  <React.StrictMode>
-    <AppWithProviders />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <AppWithProviders />
+  // </React.StrictMode>
 );

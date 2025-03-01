@@ -4,7 +4,7 @@ import { Goals } from "./goals";
 import { Process } from "./process";
 import { Ivocation } from "./ivocation";
 import { Price } from "./price";
-import { Discount } from "./discount";
+// import { Discount } from "./discount";
 import { Cases } from "./cases";
 import { Quations } from "./quations";
 import { Connection } from "./connection";
@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
         <Process />
         <Ivocation />
         <Price />
-        <Discount />
+        {/* <Discount /> */}
         <Cases />
         <Quations />
         <Connection />
