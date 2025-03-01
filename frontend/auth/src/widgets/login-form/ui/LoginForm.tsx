@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-// import { useAuth } from "host/useAuth";
+import { useAuth } from "host/useAuth";
 
 export const LoginForm = () => {
-  // const { login, accessToken } = useAuth();
+  const { login, accessToken } = useAuth();
   const [loginInput, setLoginInput] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);

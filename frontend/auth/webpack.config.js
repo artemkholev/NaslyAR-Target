@@ -9,12 +9,16 @@ const configs = {
   appFileName: "remoteEntry.js",
   development: {
     PUBLIC_PATH: "http://localhost:3003/",
-    CONTAINER_PATH: "host@http://localhost:3000/remoteEntry.js",
+    REMOTE_PATHS: {
+      host: "host@http://localhost:3000/remoteEntry.js",
+    },
     PORT: 3003,
   },
   production: {
     PUBLIC_PATH: "http://localhost:3003/",
-    CONTAINER_PATH: "host@http://localhost:3000/remoteEntry.js",
+    REMOTE_PATHS: {
+      host: "host@http://localhost:3000/remoteEntry.js",
+    },
     PORT: 3003,
   },
 };
@@ -91,9 +95,7 @@ module.exports = (env, argv) => {
       new ModuleFederationPlugin({
         name: configs.appName,
         filename: configs.appFileName,
-        remotes: {
-          container: configs[argv.mode].CONTAINER_PATH,
-        },
+        remotes: configs[argv.mode].REMOTE_PATHS,
         exposes: {
           "./AuthPage": "./src/pages/auth-page/ui/AuthPage.tsx",
         },

@@ -2,9 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface SidebarState {
   isOpen: boolean;
-  toggleSidebar: () => void;
-  openSidebar: () => void;
-  closeSidebar: () => void;
 }
 
 const initialState = {
@@ -15,13 +12,13 @@ const sidebarSlice = createSlice({
   name: "sidebar",
   initialState,
   reducers: {
-    toggleSidebar: (state: any) => {
+    toggleSidebar: (state: SidebarState): void => {
       state.isOpen = !state.isOpen;
     },
-    openSidebar: (state: any) => {
+    openSidebar: (state: SidebarState): void => {
       state.isOpen = true;
     },
-    closeSidebar: (state: any) => {
+    closeSidebar: (state: SidebarState): void => {
       state.isOpen = false;
     },
   },

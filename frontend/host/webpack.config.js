@@ -62,7 +62,7 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
-          type: 'asset/resource',
+          type: "asset/resource",
         },
         {
           test: /\.css$/,
@@ -113,11 +113,9 @@ module.exports = (env, argv) => {
         name: configs.appName,
         filename: configs.appFileName,
         // remotes: configs[argv.mode].REMOTE_PATH,
-        remotes: {
-          auth: "auth@http://localhost:3003/remoteEntry.js",
-        },
+        remotes: configs[argv.mode].REMOTE_PATHS,
         exposes: {
-          "./useAuth": "./src/features/auth/hooks/useAuth.ts"
+          "./useAuth": "./src/features/auth/hooks/useAuth.ts",
         },
         shared: {
           ...deps,
