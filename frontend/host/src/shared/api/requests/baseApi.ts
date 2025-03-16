@@ -6,6 +6,7 @@ const baseURL = process.env.VITE_API_URL;
 const baseApi = axios.create({
   baseURL: baseURL,
   withCredentials: true,
+  timeout: 10000
 });
 
 let isRefreshing = false;

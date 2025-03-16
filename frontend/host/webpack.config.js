@@ -115,7 +115,11 @@ module.exports = (env, argv) => {
         // remotes: configs[argv.mode].REMOTE_PATH,
         remotes: configs[argv.mode].REMOTE_PATHS,
         exposes: {
+          //modules
           "./useAuth": "./src/features/auth/hooks/useAuth.ts",
+          // components
+          "./GradientButton": "./src/shared/ui/gradient-button/ui.tsx",
+          "./Input": "./src/shared/ui/input/ui.tsx"
         },
         shared: {
           ...deps,

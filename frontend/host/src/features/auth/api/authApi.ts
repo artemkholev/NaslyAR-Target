@@ -1,22 +1,24 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import baseApi from "@/shared/api/auth";
+import baseApi from "@/shared/api/requests";
 import { setToken, removeToken } from "@/shared/lib/auth";
+import { clearUser } from "@/entities/user";
 
-export const fetchUser = createAsyncThunk(
-  "auth/fetchUser",
-  async (_, { rejectWithValue }) => {
+export const registerRequest = createAsyncThunk(
+  "auth/register",
+  async (credentials: { email: string; password: string }, { rejectWithValue }) => {
     try {
-      const { data } = await baseApi.get("/auth/me"); // Adjust endpoint as needed
-      return data; // Expected to contain user info
-    } catch (error) {
-      return rejectWithValue("Failed to fetch user information");
+      const { data } = await baseApi.post("/auth/register", credentials);
+      setToken(data.accessToken);
+      return { accessToken: data.accessToken };
+    } catch {
+      return rejectWithValue("Ошибка регистрации");
     }
   }
 );
 
 export const loginRequest = createAsyncThunk(
   "auth/login",
-  async (credentials: { login: string; password: string }, { rejectWithValue }) => {
+  async (credentials: { email: string; password: string }, { rejectWithValue }) => {
     try {
       const { data } = await baseApi.post("/auth/login", credentials);
       setToken(data.accessToken);
@@ -40,7 +42,9 @@ export const refreshTokenRequest = createAsyncThunk(
   }
 );
 
-export const logoutRequest = createAsyncThunk("auth/logout", async () => {
+export const logoutRequest = createAsyncThunk("auth/logout", async (_, { dispatch }) => {
   await baseApi.post("/auth/logout");
   removeToken();
+  dispatch(clearUser()); // Очищаем данные пользователя
 });
+

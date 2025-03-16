@@ -1,6 +1,6 @@
 .form {
-  @apply flex flex-col p-4 w-full relative gap-3 justify-between;
-  @apply p-[16px] bg-[var(--main-bg)] rounded-[15px];
+  @apply flex flex-col p-4 w-full relative gap-4 justify-between;
+  @apply p-5 bg-[var(--main-bg)] rounded-[15px];
   @apply shadow-regular;
 }
 

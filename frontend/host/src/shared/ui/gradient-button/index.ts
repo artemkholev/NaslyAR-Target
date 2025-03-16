@@ -1,1 +1,3 @@
-export * from "./ui";
+import GradientButton from "./ui";
+
+export { GradientButton };

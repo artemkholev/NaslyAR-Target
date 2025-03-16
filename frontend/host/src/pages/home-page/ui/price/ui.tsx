@@ -12,8 +12,8 @@ export const Price = () => {
 
   return (
     <article id='price' className='relative page__box'>
-      <h1 className='typography__title--large'>{t("home_page.price.title")}</h1>
-      <div className='typography__title--medium-plus'>
+      <h1 className='typography__title--max'>{t("home_page.price.title")}</h1>
+      <div className='typography__title--large'>
         <p>{t("home_page.price.meta_1")}</p>
         <p>{t("home_page.price.meta_2")}</p>
       </div>

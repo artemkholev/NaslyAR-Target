@@ -8,7 +8,7 @@ export const Process: React.FC = () => {
 
   return (
     <article id='process' className='page__box'>
-      <h1 className='typography__title--large text-center md:max-lg:mb-[80px]'>
+      <h1 className='typography__title--max text-center md:max-lg:mb-[80px]'>
         {t("home_page.process.title")}
       </h1>
 

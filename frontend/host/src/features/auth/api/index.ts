@@ -1,1 +1,1 @@
-export { fetchUser, loginRequest, refreshTokenRequest, logoutRequest } from "./authApi";
+export { registerRequest, loginRequest, refreshTokenRequest, logoutRequest } from "./authApi";

@@ -10,7 +10,7 @@ export const Ivocation = () => {
 
   return (
     <article id='ivocation' className='page__box'>
-      <h1 className='typography__title--large'>
+      <h1 className='typography__title--max'>
         {t("home_page.ivocation.title_1")}
         <span className='bg-[#7bd5f5] p-2 rounded-2xl'>{t("home_page.ivocation.title_2")}</span>
         {t("home_page.ivocation.title_3")}

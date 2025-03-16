@@ -15,7 +15,7 @@ const GoalListComponent = ({ goals }: { goals: Goal[] }) => {
       className='rounded-[40px] h-60 flex items-center justify-center p-4'
       style={{ backgroundColor: goal.id % 2 ? "#DFE6EF" : "#F3F3F3" }}>
       <div className='text-2xl z-[13] flex flex-col gap-2'>
-        <span className='typography__title--medium-plus'>{goal.text}</span>
+        <span className='typography__title--large'>{goal.text}</span>
         <span className='w-14 bg-white rounded-full text-center text-lg'>
           {goal.icon}
           {goal.amount}

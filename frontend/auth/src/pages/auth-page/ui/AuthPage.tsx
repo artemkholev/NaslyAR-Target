@@ -9,7 +9,7 @@ const AuthPage = () => {
   return (
     <div className='page'>
       <div className="page__container justify-center items-center">
-        <div className='w-96 flex flex-col items-center gap-6 p-6'>
+        <div className='flex flex-col items-center gap-6'>
           <div className='w-full flex justify-center gap-4'>
             <button
               className={`px-4 py-2 rounded-2xl shadow text-base font-medium ${

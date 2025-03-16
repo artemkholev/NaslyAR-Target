@@ -32,7 +32,7 @@ export const Quations = () => {
       <div
         className='w-full flex flex-row justify-between gap-5 items-center cursor-pointer'
         onClick={() => toggleOpen(item)}>
-        <p className='font-bold text-xl flex-1 break-words text-left'>{item.title}</p>
+        <p className='typography__title--max flex-1 break-words text-left'>{item.title}</p>
         <OpenCloseButton isOpen={item.open} onToggle={() => {}} /> 
       </div>
       {item.open && <div className='mt-6 whitespace-pre-line'>{item.discription}</div>}
@@ -41,7 +41,7 @@ export const Quations = () => {
 
   return (
     <article id='quations' className='page__box'>
-      <h1 className='typography__title--large text-center'>Отвечаем на часто задаваемые вопросы</h1>
+      <h1 className='typography__title--max text-center'>Отвечаем на часто задаваемые вопросы</h1>
       <div>
         <ul className='flex flex-col items-center p-0'>{quationsContent}</ul>
       </div>

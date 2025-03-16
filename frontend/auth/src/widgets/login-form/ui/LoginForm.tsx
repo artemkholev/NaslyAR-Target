@@ -1,54 +1,102 @@
 import React, { useState } from "react";
 import { useAuth } from "host/useAuth";
+import Input from "host/Input";
+import GradientButton from "host/GradientButton";
 
 export const LoginForm = () => {
-  const { login, accessToken } = useAuth();
-  const [loginInput, setLoginInput] = useState("");
+  const { login } = useAuth();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [error, setError] = useState("");
+
+  // Валидация email
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Валидация пароля
+  const validatePassword = (password: string) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*]/.test(password);
+
+    return (
+      password.length >= minLength &&
+      hasUpperCase &&
+      hasLowerCase &&
+      hasNumber &&
+      hasSpecialChar
+    );
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
+
+    // Проверка валидации email
+    if (!validateEmail(email)) {
+      setError("Пожалуйста, введите корректный email.");
+      return;
+    }
+
+    // Проверка валидации пароля
+    if (!validatePassword(password)) {
+      setError(
+        "Пароль должен содержать не менее 8 символов, включая заглавные и строчные буквы, цифры и специальные символы (!@#$%^&*)."
+      );
+      return;
+    }
+
+    setIsLoggingIn(true);
+    setError("");
 
     try {
-      // await login(loginInput, password);
-      // console.log("✅ Login successful! Access Token:", accessToken);
+      await login(email, password);
+      console.log("Вход выполнен успешно!");
+      setEmail("");
+      setPassword("");
     } catch (err) {
-      console.error("❌ Login failed:", err);
-      setError("Неверный логин или пароль");
+      console.error("Ошибка при входе:", err);
+      setError("Неверный email или пароль. Пожалуйста, попробуйте снова.");
     } finally {
-      setLoading(false);
+      setIsLoggingIn(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className='form'>
-      <input
-        type='text'
-        placeholder='Логин'
-        value={loginInput}
-        onChange={(e) => setLoginInput(e.target.value)}
-        className='border p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary'
-        required
+      {/* Поле для ввода email */}
+      <Input
+        type='email'
+        placeholder='Email'
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        disabled={isLoggingIn}
       />
-      <input
+
+      {/* Поле для ввода пароля */}
+      <Input
         type='password'
         placeholder='Пароль'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className='border p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary'
-        required
+        disabled={isLoggingIn}
       />
-      {error && <p className='text-red-500 text-sm'>{error}</p>}
-      <button
+
+      {/* Вывод ошибок */}
+      {error && <p className='text-red-500 mt-2'>{error}</p>}
+
+      {/* Кнопка входа */}
+      <GradientButton
         type='submit'
-        className='bg-gradient-bg text-white py-2 rounded-2xl disabled:opacity-50'
-        disabled={loading}>
-        {loading ? "Входим..." : "Войти"}
-      </button>
+        disabled={isLoggingIn}
+        className='mt-4'
+      >
+        {isLoggingIn ? "Входим..." : "Войти"}
+      </GradientButton>
     </form>
   );
 };

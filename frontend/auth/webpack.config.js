@@ -97,6 +97,9 @@ module.exports = (env, argv) => {
         filename: configs.appFileName,
         remotes: configs[argv.mode].REMOTE_PATHS,
         exposes: {
+          //modules
+          //components
+          //pages
           "./AuthPage": "./src/pages/auth-page/ui/AuthPage.tsx",
         },
         shared: {

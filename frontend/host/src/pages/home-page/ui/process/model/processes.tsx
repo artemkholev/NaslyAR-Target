@@ -28,12 +28,12 @@ const ProcessesListComponent = ({ processes }: { processes: Processes[] }) => {
           backgroundColor: process.bgColor,
         }}>
         <div className='flex justify-between'>
-          <span className='w-20 h-12 bg-white rounded-full typography__title--large p-1 flex justify-center items-center'>
+          <span className='w-20 h-12 bg-white rounded-full typography__title--max p-1 flex justify-center items-center'>
             {process.id + 1}
           </span>
           <img src={process.img} alt={process.alt} />
         </div>
-        <span className='typography__title--medium-plus'>{process.text}</span>
+        <span className='typography__title--large'>{process.text}</span>
       </div>
     </div>
   ));

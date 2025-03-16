@@ -34,10 +34,10 @@ export const Cases = () => {
   return (
     <article id='cases' className='flex justify-center max-lg:flex-col gap-5'>
       <div className='w-1/2 max-lg:w-full'>
-        <h1 className='typography__title--large'>
+        <h1 className='typography__title--max'>
           А вот и наши <span className='bg-[#7BD5F5] rounded-3xl px-2'>кейсы</span>
         </h1>
-        <p className='text-2xl mb-5'>Смотрите, что мы уже успели сделать и присоединяйтесь</p>
+        <p className='typography__title--large mb-5'>Смотрите, что мы уже успели сделать и присоединяйтесь</p>
 
         <div className='flex flex-wrap gap-5'>{casesButtonsContent}</div>
       </div>

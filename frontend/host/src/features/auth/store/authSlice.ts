@@ -1,20 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser, loginRequest, refreshTokenRequest, logoutRequest } from "../api";
-
-interface User {
-  id: string;
-  username: string;
-  email: string;
-}
+import { loginRequest, refreshTokenRequest, logoutRequest } from "../api";
 
 interface AuthState {
   accessToken: string | null;
-  user: User | null;
 }
 
 const initialState: AuthState = {
   accessToken: localStorage.getItem("accessToken") ?? null,
-  user: null,
 };
 
 const authSlice = createSlice({
@@ -31,10 +23,6 @@ const authSlice = createSlice({
       })
       .addCase(logoutRequest.fulfilled, (state) => {
         state.accessToken = null;
-        state.user = null;
-      })
-      .addCase(fetchUser.fulfilled, (state, action) => {
-        state.user = action.payload;
       });
   },
 });

@@ -2,13 +2,14 @@
 
 declare module "host/useAuth" {
   export interface LoginCredentials {
-    login: string;
+    email: string;
     password: string;
   }
 
   export interface UseAuthReturn {
     accessToken: string | null;
-    login: (login: string, password: string) => Promise<void>;
+    register: (email: string, password: string) => Promise<void>;
+    login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
     refreshToken: () => Promise<void>;
   }

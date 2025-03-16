@@ -15,8 +15,8 @@ export const MainInfo: React.FC = () => {
       className='h-[400px] max-2xl:h-[500px] max-md:h-[600px] max-sm:h-[700px] flex relative overflow-hidden justify-center'>
       <div className='flex justify-between gap-80 max-2xl:gap-64 items-start max-md:gap-8 max-md:flex-col'>
         <div className='flex flex-col gap-10 max-md:gap-5 py-5'>
-          <h1 className='text-4xl font-bold'>{t("home_page.main_info.title")}</h1>
-          <p className='text-lg text-gray-500'>{t("home_page.main_info.description")}</p>
+          <h1 className='typography__title--max font-bold'>{t("home_page.main_info.title")}</h1>
+          <p className='typography__title--large text-gray-500'>{t("home_page.main_info.description")}</p>
           <GradientButton>{t("home_page.main_info.text_button")}</GradientButton>
         </div>
 
@@ -33,7 +33,7 @@ export const MainInfo: React.FC = () => {
             alt={t("home_page.main_info.description_experience_1")}
             className='w-12 h-12'
           />
-          <span className='text-lg font-medium'>
+          <span className='typography__title--large font-medium'>
             {t("home_page.main_info.description_experience_1")}
           </span>
         </div>
@@ -44,7 +44,7 @@ export const MainInfo: React.FC = () => {
             alt={t("home_page.main_info.description_experience_2")}
             className='w-12 h-12'
           />
-          <span className='text-lg font-medium'>
+          <span className='typography__title--large font-medium'>
             {t("home_page.main_info.description_experience_2")}
           </span>
         </div>
@@ -55,7 +55,7 @@ export const MainInfo: React.FC = () => {
             alt={t("home_page.main_info.description_experience_3")}
             className='w-12 h-12'
           />
-          <span className='text-lg font-medium'>
+          <span className='typography__title--large font-medium'>
             {t("home_page.main_info.description_experience_3")}
           </span>
         </div>
