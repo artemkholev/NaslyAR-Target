@@ -10,6 +10,36 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// GetCurrentUser возвращает данные текущего пользователя
+func GetCurrentUser(c *gin.Context) {
+	// Извлекаем пользователя из контекста
+	user, exists := c.Get("user")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Пользователь не найден"})
+		return
+	}
+
+	// Приводим к типу models.User
+	currentUser, ok := user.(models.User)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при получении данных пользователя"})
+		return
+	}
+
+	// Создаем UserResponse с нужными полями
+	userResponse := models.UserResponse{
+		ID:        currentUser.ID,
+		Email:     currentUser.Email,
+		FirstName: currentUser.FirstName,
+		LastName:  currentUser.LastName,
+		Phone:     currentUser.Phone,
+		Role:      currentUser.Role,
+	}
+
+	// Возвращаем данные пользователя
+	c.JSON(http.StatusOK, gin.H{"data": userResponse})
+}
+
 // GetUsers возвращает список всех пользователей
 func GetUsers(c *gin.Context) {
 	var users []models.User

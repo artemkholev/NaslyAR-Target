@@ -1,21 +1,23 @@
-import { AppDispatch } from "@/app/store";
-import React, { ReactNode, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchUser } from "@/entities/user";
+import { useEffect } from "react";
+import { useAuth } from "@/features/auth";
+import { useUser } from "@/entities/user";
+import React from "react";
 
 interface AuthProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const { accessToken } = useAuth();
+  const { user, getUser } = useUser();
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      dispatch(fetchUser());
+    if (accessToken && !user) {
+      getUser().catch((error) => {
+        console.error("Ошибка при загрузке данных пользователя:", error);
+      });
     }
-  }, [dispatch]);
+  }, [accessToken, user, getUser]);
 
   return <>{children}</>;
 };

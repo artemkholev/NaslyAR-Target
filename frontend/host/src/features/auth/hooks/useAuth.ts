@@ -6,8 +6,6 @@ export const useAuth = () => {
   const dispatch = useDispatch<AppDispatch>();
   const accessToken = useSelector((state: RootState) => state.auth.accessToken);
 
-  const isAuthenticated = !!accessToken;
-
   const register = (email: string, password: string) =>
     dispatch(registerRequest({ email, password })).unwrap();
   const login = (email: string, password: string) =>
@@ -15,5 +13,5 @@ export const useAuth = () => {
   const logout = () => dispatch(logoutRequest()).unwrap();
   const refreshToken = () => dispatch(refreshTokenRequest()).unwrap();
 
-  return { isAuthenticated, accessToken, register, login, logout, refreshToken };
+  return { accessToken, register, login, logout, refreshToken };
 };

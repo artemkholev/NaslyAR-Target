@@ -38,7 +38,7 @@ func main() {
 	configs.ConnectDB()
 
 	// Run database migrations
-	err := configs.DB.AutoMigrate(&models.User{}, &models.Request{}, &models.VerificationToken{})
+	err := configs.DB.AutoMigrate(&models.User{}, &models.Request{}, &models.VerificationToken{}, &models.RefreshToken{})
 	if err != nil {
 		log.Fatal("Migration failed:", err)
 	}

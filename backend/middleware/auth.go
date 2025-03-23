@@ -3,77 +3,78 @@ package middleware
 import (
 	"net/http"
 	"os"
-	"strings"
+
+	"backend/configs"
+	"backend/models"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
-type JWTClaims struct {
-	UserID uint `json:"user_id"`
-	jwt.StandardClaims
-}
-
-// JWT Middleware
+// AuthMiddleware проверяет access token и добавляет информацию о пользователе в контекст
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		// Получаем заголовок Authorization
+		// Получаем токен из заголовка Authorization
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing Authorization header"})
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Требуется авторизация"})
 			c.Abort()
 			return
 		}
 
-		// Проверяем, что заголовок начинается с "Bearer "
-		const bearerPrefix = "Bearer "
-		if !strings.HasPrefix(authHeader, bearerPrefix) {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Authorization header format"})
+		// Проверяем формат токена (Bearer <token>)
+		tokenString := authHeader[len("Bearer "):]
+		if tokenString == authHeader {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверный формат токена"})
 			c.Abort()
 			return
 		}
 
-		// Извлекаем токен из заголовка
-		tokenString := authHeader[len(bearerPrefix):]
-
-		// Парсим токен
-		token, err := jwt.ParseWithClaims(tokenString, &JWTClaims{}, func(token *jwt.Token) (interface{}, error) {
-			// Проверяем метод подписи
-			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, jwt.ErrSignatureInvalid
-			}
-			// Возвращаем секретный ключ
+		// Парсим токенtoken
+		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 			return []byte(os.Getenv("JWT_SECRET")), nil
 		})
-
-		// Обрабатываем ошибки парсинга токена
-		if err != nil {
-			if err == jwt.ErrSignatureInvalid {
-				c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token signature"})
-			} else {
-				c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-			}
-			c.Abort()
-			return
-		}
-
-		// Проверяем, что токен валиден
-		if !token.Valid {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+		if err != nil || !token.Valid {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверный токен"})
 			c.Abort()
 			return
 		}
 
 		// Извлекаем claims из токена
-		claims, ok := token.Claims.(*JWTClaims)
+		claims, ok := token.Claims.(jwt.MapClaims)
 		if !ok {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token claims"})
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверные данные токена"})
 			c.Abort()
 			return
 		}
 
-		// Прикрепляем user_id к контексту для дальнейшего использования
-		c.Set("user_id", claims.UserID)
+		// Получаем user_id из токена (UUID в виде строки)
+		userIDStr, ok := claims["user_id"].(string)
+		if !ok {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверный формат user_id в токене"})
+			c.Abort()
+			return
+		}
+
+		// Преобразуем строку в UUID
+		userID, err := uuid.Parse(userIDStr)
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Неверный формат UUID"})
+			c.Abort()
+			return
+		}
+
+		// Ищем пользователя в базе данных
+		var user models.User
+		if err := configs.DB.Where("id = ?", userID).First(&user).Error; err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Пользователь не найден"})
+			c.Abort()
+			return
+		}
+
+		// Добавляем пользователя в контекст
+		c.Set("user", user)
 		c.Next()
 	}
 }

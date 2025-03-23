@@ -119,7 +119,7 @@ module.exports = (env, argv) => {
           "./useAuth": "./src/features/auth/hooks/useAuth.ts",
           // components
           "./GradientButton": "./src/shared/ui/gradient-button/ui.tsx",
-          "./Input": "./src/shared/ui/input/ui.tsx"
+          "./Input": "./src/shared/ui/input/ui.tsx",
         },
         shared: {
           ...deps,

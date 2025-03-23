@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { setToken, getToken, removeToken } from "@/shared/lib/auth";
 
 const baseURL = process.env.VITE_API_URL;

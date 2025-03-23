@@ -8,15 +8,19 @@ import { CONTENT_NAVIGATION_MENU } from "@/shared/content";
 import TgIcon from "@/shared/assets/icons/header/tg.svg";
 import Menu from "@/shared/assets/icons/header/menu.svg";
 import { GradientButton } from "@/shared/ui/gradient-button";
+import { useAuth } from "@/features/auth";
+import { useToaster } from "@/shared/lib/toaster";
 
 export const Header: React.FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { user, isAuthenticated } = useUser();
+  const { logout } = useAuth();
   const location = useLocation(); // Получаем текущий путь
+  const { showToast } = useToaster();
 
   const showNavigationContent = location.pathname === "/";
-  const showNavigationButtonLogin = location.pathname === "/auth"
+  const showNavigationButtonLogin = location.pathname === "/auth";
 
   const navigationContent = showNavigationContent
     ? CONTENT_NAVIGATION_MENU.map((item) => (
@@ -27,6 +31,15 @@ export const Header: React.FC = () => {
         </li>
       ))
     : null;
+
+  const handleLogout = async () => {
+    try {
+      const responce: string = await logout();
+      showToast(responce, "success");
+    } catch (error: any) {
+      showToast(error, "error");
+    }
+  };
 
   return (
     <header className='header'>
@@ -50,11 +63,14 @@ export const Header: React.FC = () => {
           </a>
 
           {/* Показываем "Login / Registration" только если пользователь не авторизован */}
-          {showNavigationButtonLogin || (!isAuthenticated && (
-            <a href='/auth'>
-              <GradientButton>{t("login")}</GradientButton>
-            </a>
-          ))}
+          {showNavigationButtonLogin ||
+            (!isAuthenticated && (
+              <a href='/auth'>
+                <GradientButton>{t("login")}</GradientButton>
+              </a>
+            ))}
+
+          {isAuthenticated && <GradientButton onClick={handleLogout}>{t("logout")}</GradientButton>}
 
           {/* Показываем "Admin" только если пользователь авторизован и его роль - admin */}
           {isAuthenticated && user?.role === "admin" && <a href='/admin'>Admin</a>}

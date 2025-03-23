@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "host/useAuth";
+import { validateEmail, validatePassword } from "@/shared/lib/validatiion";
+import { AppRoutes } from "@/app/router";
 import Input from "host/Input";
 import GradientButton from "host/GradientButton";
 
@@ -11,29 +14,7 @@ export const RegisterForm = () => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-
-  // Валидация email
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  // Валидация пароля
-  const validatePassword = (password: string) => {
-    const minLength = 8;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumber = /[0-9]/.test(password);
-    const hasSpecialChar = /[!@#$%^&*]/.test(password);
-
-    return (
-      password.length >= minLength &&
-      hasUpperCase &&
-      hasLowerCase &&
-      hasNumber &&
-      hasSpecialChar
-    );
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,10 +45,7 @@ export const RegisterForm = () => {
     try {
       await register(email, password);
       console.log("Регистрация успешна!");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-      setAcceptedTerms(false);
+      navigate(AppRoutes.HOME);
     } catch (err) {
       console.error("Ошибка при регистрации:", err);
       setError("Произошла ошибка при регистрации. Пожалуйста, попробуйте снова.");
@@ -124,11 +102,7 @@ export const RegisterForm = () => {
       </div>
 
       {/* Кнопка регистрации */}
-      <GradientButton
-        type='submit'
-        disabled={isRegistering}
-        className='mt-4'
-      >
+      <GradientButton type='submit' disabled={isRegistering} className='mt-4'>
         {isRegistering ? "Загрузка..." : "Зарегистрироваться"}
       </GradientButton>
 

@@ -13,6 +13,7 @@ func SetupRoutes(r *gin.Engine) {
 	{
 		authGroup.POST("/register", controllers.Register)
 		authGroup.POST("/login", controllers.Login)
+		authGroup.POST("/logout", controllers.Logout)
 		authGroup.GET("/verify", controllers.VerifyEmail)
 	}
 
@@ -20,6 +21,8 @@ func SetupRoutes(r *gin.Engine) {
 	apiGroup := r.Group("/api")
 	apiGroup.Use(middleware.AuthMiddleware())
 	{
+		apiGroup.GET("/me", controllers.GetCurrentUser)
+
 		requestsGroup := apiGroup.Group("/requests")
 		{
 			requestsGroup.POST("/", controllers.CreateRequest)

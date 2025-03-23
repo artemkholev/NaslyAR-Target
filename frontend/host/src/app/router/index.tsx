@@ -1,1 +1,2 @@
-export { ProtectedRoute } from "./ProtectedRoute"
+export { ProtectedRoute } from "./ProtectedRoute";
+export * from "./router.options";
