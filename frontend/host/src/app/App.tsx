@@ -10,6 +10,7 @@ import("@/shared/lib/i18n");
 
 const AuthPage = React.lazy(() => import("auth/AuthPage"));
 const UserPage = React.lazy(() => import("@/pages/home-page"));
+const PrivacyPolicyPage = React.lazy(() => import("@/pages/privacy-policy"));
 
 const ErrorFallback: React.FC = () => {
   return <div>Произошла ошибка при загрузке страницы.</div>;
@@ -19,6 +20,8 @@ const App: React.FC = () => (
   <Routes>
     <Route path={AppRoutes.HOME} element={<BaseLayout />}>
       {/* Публичные маршруты */}
+      <Route path={AppRoutes.PRIVACY_POLICY} element={<PrivacyPolicyPage />} />
+      {/* Публичные маршруты - микрофронты */}
       <Route
         path={AppRoutes.HOME}
         element={
@@ -27,19 +30,24 @@ const App: React.FC = () => (
           </Suspense>
         }
       />
-      <Route
-        path={AppRoutes.AUTH}
-        element={
-          <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Suspense fallback={<div>Загрузка...</div>}>
-              <AuthPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Route path={AppRoutes.AUTH}>
+        <Route index element={<Navigate to={AppRoutes.AUTH_LOGIN} replace />} />
+        <Route
+          path='*'
+          element={
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <Suspense fallback={<div>Загрузка...</div>}>
+                <AuthPage />
+              </Suspense>
+            </ErrorBoundary>
+          }
+        />
+      </Route>
 
       {/* Защищённые маршруты */}
-      <Route element={<ProtectedRoute />}></Route>
+      <Route element={<ProtectedRoute />}>
+        <Route path={AppRoutes.REQUEST} element={<PrivacyPolicyPage />} />
+      </Route>
 
       {/* Перенаправление на главную страницу, если маршрут не найден */}
       <Route path={AppRoutes.NOT_FOUND} element={<Navigate to={AppRoutes.HOME} replace />} />

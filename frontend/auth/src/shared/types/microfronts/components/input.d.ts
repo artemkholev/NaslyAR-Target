@@ -5,8 +5,10 @@ declare module "host/Input" {
 
   interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     type?: "text" | "password" | "email"; // Тип инпута
-    placeholder?: string; // Плейсхолдер
-    value?: string; // Значение инпута
+    label?: string; // Лейбл для инпута
+    error?: string; // Сообщение об ошибке
+    icon?: "email" | "password"; // Тип иконк
+
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Обработчик изменения
   }
 

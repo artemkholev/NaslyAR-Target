@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "host/useAuth";
 import { validateEmail, validatePassword } from "@/shared/lib/validatiion";
+import { IResponse } from "@/entities/auth"; 
 import { AppRoutes } from "@/app/router";
 import Input from "host/Input";
-import GradientButton from "host/GradientButton";
 
 export const RegisterForm = () => {
   const { register } = useAuth();
@@ -12,43 +12,70 @@ export const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const navigate = useNavigate();
 
+  const parseErrorString = (errorString: string): Record<string, string> => {
+    try {
+      return JSON.parse(errorString);
+    } catch {
+      return {};
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
+    setFieldErrors({});
+
+    // Валидация на клиенте
+    const errors: Record<string, string> = {};
 
     if (!validateEmail(email)) {
-      setError("Пожалуйста, введите корректный email.");
-      return;
+      errors.email = "Пожалуйста, введите корректный email.";
     }
 
     if (!validatePassword(password)) {
-      setError("Пароль должен содержать не менее 8 символов.");
-      return;
+      errors.password =
+        "Пароль должен содержать не менее 8 символов, включая заглавные и строчные буквы, цифры и специальные символы (!@#$%^&*)";
     }
 
     if (password !== confirmPassword) {
-      setError("Пароли не совпадают.");
-      return;
+      errors.confirmPassword = "Пароли не совпадают.";
     }
 
     if (!acceptedTerms) {
-      setError("Пожалуйста, примите условия сайта.");
+      errors.terms = "Пожалуйста, примите условия сайта.";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setErrorMessage("Исправьте ошибки в форме");
       return;
     }
 
     setIsRegistering(true);
-    setError("");
 
     try {
-      await register(email, password);
-      console.log("Регистрация успешна!");
-      navigate(AppRoutes.HOME);
+      const response: IResponse = await register(email, password);
+
+      if (response.success === true) {
+        console.log("Регистрация успешна");
+        navigate(AppRoutes.HOME);
+      } else {
+        const serverErrors = response.errors ? parseErrorString(response.errors) : {};
+
+        if (Object.keys(serverErrors).length > 0) {
+          setFieldErrors(serverErrors);
+        }
+
+        setErrorMessage(response.message || "Произошла ошибка при регистрации");
+      }
     } catch (err) {
       console.error("Ошибка при регистрации:", err);
-      setError("Произошла ошибка при регистрации. Пожалуйста, попробуйте снова.");
+      setErrorMessage("Произошла непредвиденная ошибка. Пожалуйста, попробуйте снова.");
     } finally {
       setIsRegistering(false);
     }
@@ -56,58 +83,59 @@ export const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className='form'>
-      {/* Поле для ввода email */}
+      {errorMessage && <div className='mb-4 p-3 text-red-500'>{errorMessage}</div>}
+
       <Input
         type='email'
         placeholder='Email'
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         disabled={isRegistering}
+        error={fieldErrors.email}
       />
 
-      {/* Поле для ввода пароля */}
       <Input
         type='password'
         placeholder='Пароль'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         disabled={isRegistering}
+        error={fieldErrors.password}
       />
 
-      {/* Поле для подтверждения пароля */}
       <Input
         type='password'
         placeholder='Подтвердите пароль'
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
         disabled={isRegistering}
+        error={fieldErrors.confirmPassword}
       />
 
-      {/* Галочка для принятия условий */}
-      <div className='flex items-center mt-4'>
+      <div className='flex mt-4 gap-2 items-start'>
         <input
           type='checkbox'
           id='terms'
           checked={acceptedTerms}
           onChange={(e) => setAcceptedTerms(e.target.checked)}
           disabled={isRegistering}
-          className='mr-2'
+          className='mt-1'
         />
         <label htmlFor='terms' className='text-sm'>
           Я принимаю{" "}
-          <a href='/terms' className='text-blue-500 hover:underline'>
+          <a href={AppRoutes.PRIVACY_POLICY} className='text-blue-500 hover:underline'>
             условия использования
           </a>
         </label>
       </div>
+      {fieldErrors.terms && <p className='text-red-500 text-sm mt-1'>{fieldErrors.terms}</p>}
 
-      {/* Кнопка регистрации */}
-      <GradientButton type='submit' disabled={isRegistering} className='mt-4'>
+      <button
+        type='submit'
+        disabled={isRegistering}
+        className='button button--gradient w-full mt-4'>
         {isRegistering ? "Загрузка..." : "Зарегистрироваться"}
-      </GradientButton>
-
-      {/* Вывод ошибок */}
-      {error && <p className='text-red-500 mt-2'>{error}</p>}
+      </button>
     </form>
   );
 };

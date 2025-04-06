@@ -8,8 +8,12 @@ export const registerRequest = createAsyncThunk(
   async (credentials: { email: string; password: string }, { rejectWithValue }) => {
     try {
       const { data } = await baseApi.post("/auth/register", credentials);
-      setToken(data.access_token);
-      return { accessToken: data.access_token };
+
+      if (data.access_token) {
+        setToken(data.access_token);
+      }
+
+      return data;
     } catch {
       return rejectWithValue("Ошибка регистрации");
     }
@@ -21,7 +25,12 @@ export const loginRequest = createAsyncThunk(
   async (credentials: { email: string; password: string }, { rejectWithValue }) => {
     try {
       const { data } = await baseApi.post("/auth/login", credentials);
-      return { accessToken: data.access_token };
+
+      if (data.access_token) {
+        setToken(data.access_token);
+      }
+
+      return data;
     } catch {
       return rejectWithValue("Ошибка входа");
     }
@@ -33,8 +42,12 @@ export const refreshTokenRequest = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await baseApi.post("/auth/refresh");
-      setToken(data.access_token);
-      return { accessToken: data.access_token };
+
+      if (data.access_token) {
+        setToken(data.access_token);
+      }
+
+      return data;
     } catch {
       return rejectWithValue("Ошибка обновления токена");
     }
@@ -45,10 +58,10 @@ export const logoutRequest = createAsyncThunk(
   "auth/logout",
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      const responce = await baseApi.post("/auth/logout");
+      const { data } = await baseApi.post("/auth/logout");
       removeToken();
       dispatch(clearUser());
-      return responce.data;
+      return data;
     } catch {
       return rejectWithValue("Ошибка выхода из приложения");
     }

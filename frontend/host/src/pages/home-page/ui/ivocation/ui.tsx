@@ -1,8 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { GradientButton } from "@/shared/ui/gradient-button";
-
 import IvocationBackgroundDetails from "@/shared/assets/images/main-page/ivocation/background-details.png";
 
 export const Ivocation = () => {
@@ -34,7 +32,7 @@ export const Ivocation = () => {
             {t("home_page.ivocation.discount_for_buyer")}
           </span>
           <div className='relative flex mx-auto'>
-            <GradientButton>{t("home_page.ivocation.text_button")}</GradientButton>
+            <button className="button button--gradient">{t("home_page.ivocation.text_button")}</button>
             <span className='absolute px-2 rounded-full -top-3 -right-2 bg-gradient-to-r from-[#7BD5F5]/50 to-[#787FF6]/50 text-white text-xl rotate-12'>
               {t("home_page.ivocation.text_button_discount")}
             </span>

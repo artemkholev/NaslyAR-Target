@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"backend/configs"
-	"backend/models"
+	"backend/internal/app/models"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
@@ -26,6 +26,12 @@ func GetCurrentUser(c *gin.Context) {
 		return
 	}
 
+	// Проверяем верификацию пользователя
+	if !currentUser.IsVerified {
+		c.JSON(http.StatusForbidden, gin.H{"error": "Email не подтвержден"})
+		return
+	}
+
 	// Создаем UserResponse с нужными полями
 	userResponse := models.UserResponse{
 		ID:        currentUser.ID,
@@ -36,7 +42,6 @@ func GetCurrentUser(c *gin.Context) {
 		Role:      currentUser.Role,
 	}
 
-	// Возвращаем данные пользователя
 	c.JSON(http.StatusOK, gin.H{"data": userResponse})
 }
 

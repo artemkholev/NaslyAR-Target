@@ -1,8 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { GradientButton } from "@/shared/ui/gradient-button";
-
 import PriceOval from "@/shared/assets/images/main-page/price/oval.png";
 import PriceArrow from "@/shared/assets/images/main-page/price/arrow.png";
 import PriceCheckMark from "@/shared/assets/images/main-page/price/check-mark.png";
@@ -40,7 +38,7 @@ export const Price = () => {
             <li>{t("home_page.price.tariff_1.li_4")}</li>
             <li>{t("home_page.price.tariff_1.li_5")}</li>
           </ul>
-          <GradientButton>{t("home_page.price.select")}</GradientButton>
+          <button className="button button--gradient">{t("home_page.price.select")}</button>
         </div>
         <div className='max-lg:w-[380px] max-md:w-[340px] bg-white/50 p-8 max-2xl:p-5 rounded-3xl flex flex-col gap-7 z-10'>
           <h2 className='font-bold text-3xl'>{t("home_page.price.tariff_2.title")}</h2>
@@ -67,7 +65,7 @@ export const Price = () => {
             <li>{t("home_page.price.tariff_2.li_3")}</li>
             <li>{t("home_page.price.tariff_2.li_4")}</li>
           </ul>
-          <GradientButton>{t("home_page.price.select")}</GradientButton>
+          <button className="button button--gradient">{t("home_page.price.select")}</button>
         </div>
         <div className='max-lg:w-[380px] max-md:w-[340px] bg-white/50 p-8 max-2xl:p-5 rounded-3xl flex flex-col gap-7 z-10'>
           <h2 className='font-bold text-3xl'>{t("home_page.price.tariff_3.title")}</h2>
@@ -98,7 +96,7 @@ export const Price = () => {
             <li>{t("home_page.price.tariff_3.li_6")}</li>
             <li>{t("home_page.price.tariff_3.li_7")}</li>
           </ul>
-          <GradientButton>{t("home_page.price.select")}</GradientButton>
+          <button className="button button--gradient">{t("home_page.price.select")}</button>
         </div>
       </div>
     </article>

@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"backend/configs"
-	"backend/email"
-	"backend/models"
+	"backend/pkg/utils/email"
+	"backend/internal/app/models"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -104,6 +104,7 @@ func Register(c *gin.Context) {
 	// Отправляем access token в теле ответа
 	c.JSON(http.StatusCreated, gin.H{
 		"message":      "Пользователь успешно зарегистрирован. Проверьте вашу почту для подтверждения.",
+		"success":      true,
 		"access_token": accessToken,
 	})
 }
@@ -170,10 +171,13 @@ func Login(c *gin.Context) {
 	)
 
 	// Отправляем access token в теле ответа
-	c.JSON(http.StatusOK, gin.H{"access_token": accessToken})
+	c.JSON(http.StatusOK, gin.H{
+		"access_token": accessToken,
+		"success":      true,
+	})
 }
 
-//////////////////////// Logout //////////////////////////
+// ////////////////////// Logout //////////////////////////
 func Logout(c *gin.Context) {
 	// Получаем refresh token из cookie
 	refreshToken, err := c.Cookie("refresh_token")
@@ -190,19 +194,19 @@ func Logout(c *gin.Context) {
 
 	// Удаляем refresh token из cookie
 	c.SetCookie(
-		"refresh_token",          // Имя cookie
-		"",                       // Пустое значение
-		-1,                       // Время жизни cookie (удалить)
-		"/",                      // Путь
+		"refresh_token",                  // Имя cookie
+		"",                               // Пустое значение
+		-1,                               // Время жизни cookie (удалить)
+		"/",                              // Путь
 		os.Getenv("APP_FRONTEND_DOMAIN"), // Домен
-		false,                    // Secure (false для HTTP, true для HTTPS)
-		true,                     // HttpOnly (запретить доступ к cookie через JavaScript)
+		false,                            // Secure (false для HTTP, true для HTTPS)
+		true,                             // HttpOnly (запретить доступ к cookie через JavaScript)
 	)
 
-	c.JSON(http.StatusOK, gin.H{"message": "Успешный выход из системы"})
+	c.JSON(http.StatusOK, gin.H{"message": "Успешный выход из системы", "success": true})
 }
 
-//////////////////////// Refresh //////////////////////////
+// ////////////////////// Refresh //////////////////////////
 func Refresh(c *gin.Context) {
 	// Извлекаем refresh token из cookie
 	refreshToken, err := c.Cookie("refresh_token")
@@ -232,10 +236,10 @@ func Refresh(c *gin.Context) {
 	}
 
 	// Отправляем новый access token
-	c.JSON(http.StatusOK, gin.H{"access_token": accessToken})
+	c.JSON(http.StatusOK, gin.H{"access_token": accessToken, "success": true})
 }
 
-//////////////////////// VerifyEmail //////////////////////////
+// ////////////////////// VerifyEmail //////////////////////////
 func VerifyEmail(c *gin.Context) {
 	// Получаем токен из query-параметра
 	token := c.Query("token")

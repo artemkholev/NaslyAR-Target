@@ -1,5 +1,5 @@
 .form {
-  @apply flex flex-col p-4 w-full relative gap-4 justify-between;
+  @apply flex flex-col p-4 min-w-[400px] relative gap-4 justify-between;
   @apply p-5 bg-[var(--main-bg)] rounded-[15px];
   @apply shadow-regular;
 }

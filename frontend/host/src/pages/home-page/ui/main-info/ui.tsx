@@ -4,7 +4,6 @@ import MainInfoUpgrowth from "@/shared/assets/images/main-page/main-info/upgrowt
 import MainInfoMoney from "@/shared/assets/images/main-page/main-info/money.png";
 import MainInfoDiamond from "@/shared/assets/images/main-page/main-info/diamond.png";
 import { useTranslation } from "react-i18next";
-import { GradientButton } from "@/shared/ui/gradient-button";
 
 export const MainInfo: React.FC = () => {
   const { t } = useTranslation();
@@ -17,7 +16,7 @@ export const MainInfo: React.FC = () => {
         <div className='flex flex-col gap-10 max-md:gap-5 py-5'>
           <h1 className='typography__title--max font-bold'>{t("home_page.main_info.title")}</h1>
           <p className='typography__title--large text-gray-500'>{t("home_page.main_info.description")}</p>
-          <GradientButton>{t("home_page.main_info.text_button")}</GradientButton>
+          <button className="button button--gradient">{t("home_page.main_info.text_button")}</button>
         </div>
 
         <img

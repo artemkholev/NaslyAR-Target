@@ -1,2 +1,2 @@
-export * from "./email";
-export * from "./password";
+export { validateEmail } from "./email";
+export { validatePassword } from "./password";

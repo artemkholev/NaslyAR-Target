@@ -8,10 +8,10 @@ declare module "host/useAuth" {
 
   export interface UseAuthReturn {
     accessToken: string | null;
-    register: (email: string, password: string) => Promise<void>;
-    login: (email: string, password: string) => Promise<void>;
-    logout: () => Promise<void>;
-    refreshToken: () => Promise<void>;
+    register: (email: string, password: string) => Promise<object>;
+    login: (email: string, password: string) => Promise<object>;
+    logout: () => Promise<object>;
+    refreshToken: () => Promise<object>;
   }
 
   export function useAuth(): UseAuthReturn;

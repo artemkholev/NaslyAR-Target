@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Input } from "@/shared/ui/input";
-import { GradientButton } from "@/shared/ui/gradient-button";
 
 export const Connection = () => {
   return (
@@ -18,7 +17,7 @@ export const Connection = () => {
           <Input placeholder='Ваше имя' type='text' />
           <Input placeholder='e-mail' type='text' />
           <Input placeholder='Номер телефона' type='text' />
-          <GradientButton>Старт</GradientButton>
+          <button className="button button--gradient">Старт</button>
           <p className='text-white text-xs'>
             Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c{" "}
             <a href='/privacy-policy'>

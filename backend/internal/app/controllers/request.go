@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"backend/configs"
-	"backend/email"
-	"backend/models"
+	"backend/pkg/utils/email"
+	"backend/internal/app/models"
 
 	"github.com/gin-gonic/gin"
 )

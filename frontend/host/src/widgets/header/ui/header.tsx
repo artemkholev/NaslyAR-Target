@@ -7,9 +7,9 @@ import { useUser } from "@/entities/user";
 import { CONTENT_NAVIGATION_MENU } from "@/shared/content";
 import TgIcon from "@/shared/assets/icons/header/tg.svg";
 import Menu from "@/shared/assets/icons/header/menu.svg";
-import { GradientButton } from "@/shared/ui/gradient-button";
 import { useAuth } from "@/features/auth";
 import { useToaster } from "@/shared/lib/toaster";
+import { AppRoutes } from "@/app/router";
 
 export const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,8 @@ export const Header: React.FC = () => {
   const { showToast } = useToaster();
 
   const showNavigationContent = location.pathname === "/";
-  const showNavigationButtonLogin = location.pathname === "/auth";
+  const showNavigationButtonLogin =
+    location.pathname === AppRoutes.AUTH_LOGIN || location.pathname === AppRoutes.AUTH_REGISTER;
 
   const navigationContent = showNavigationContent
     ? CONTENT_NAVIGATION_MENU.map((item) => (
@@ -65,12 +66,12 @@ export const Header: React.FC = () => {
           {/* Показываем "Login / Registration" только если пользователь не авторизован */}
           {showNavigationButtonLogin ||
             (!isAuthenticated && (
-              <a href='/auth'>
-                <GradientButton>{t("login")}</GradientButton>
+              <a href={AppRoutes.AUTH_LOGIN}>
+                <button className="button button--gradient">{t("login")}</button>
               </a>
             ))}
 
-          {isAuthenticated && <GradientButton onClick={handleLogout}>{t("logout")}</GradientButton>}
+          {isAuthenticated && <button className="button button--gradient" onClick={handleLogout}>{t("logout")}</button>}
 
           {/* Показываем "Admin" только если пользователь авторизован и его роль - admin */}
           {isAuthenticated && user?.role === "admin" && <a href='/admin'>Admin</a>}

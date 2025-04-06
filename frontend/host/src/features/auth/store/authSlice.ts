@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getToken } from "@/shared/lib/auth";
 import { loginRequest, refreshTokenRequest, logoutRequest, registerRequest } from "../api";
 
 interface AuthState {
@@ -8,7 +9,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  accessToken: localStorage.getItem("accessToken") ?? null,
+  accessToken: getToken() ?? null,
   isLoading: false,
   error: null,
 };
