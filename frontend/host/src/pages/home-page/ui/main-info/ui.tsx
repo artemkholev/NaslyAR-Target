@@ -1,64 +1,52 @@
 import React from "react";
-import MainInfoAvitoProfi from "@/shared/assets/images/main-page/main-info/avitoprofi.png";
+import { useTranslation } from "react-i18next";
 import MainInfoUpgrowth from "@/shared/assets/images/main-page/main-info/upgrowth.png";
 import MainInfoMoney from "@/shared/assets/images/main-page/main-info/money.png";
 import MainInfoDiamond from "@/shared/assets/images/main-page/main-info/diamond.png";
-import { useTranslation } from "react-i18next";
+
+const cards = [
+  {
+    img: MainInfoDiamond,
+    i18nKey: "home_page.main_info.description_experience_1",
+    className: "left-0 top-0",
+  },
+  {
+    img: MainInfoMoney,
+    i18nKey: "home_page.main_info.description_experience_2",
+    className: "right-0 top-12",
+  },
+  {
+    img: MainInfoUpgrowth,
+    i18nKey: "home_page.main_info.description_experience_3",
+    className: "left-1/2 top-36 -translate-x-1/2",
+  },
+];
 
 export const MainInfo: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <article
-      id='main-info'
-      className='h-[400px] max-2xl:h-[500px] max-md:h-[600px] max-sm:h-[700px] flex relative overflow-hidden justify-center'>
-      <div className='flex justify-between gap-80 max-2xl:gap-64 items-start max-md:gap-8 max-md:flex-col'>
-        <div className='flex flex-col gap-10 max-md:gap-5 py-5'>
-          <h1 className='typography__title--max font-bold'>{t("home_page.main_info.title")}</h1>
-          <p className='typography__title--large text-gray-500'>{t("home_page.main_info.description")}</p>
-          <button className="button button--gradient">{t("home_page.main_info.text_button")}</button>
-        </div>
+    <article id='main-info' className='relative flex flex-col items-center overflow-hidden'>
+      {/* Основной текст и кнопка */}
+      <section className='text-center max-w-3xl py-12 px-4 animate-fade-in-up'>
+        <h1 className='typography__title font-bold mb-4'>{t("home_page.main_info.title")}</h1>
+        <p className='typography__text text-gray-500 mb-6'>
+          {t("home_page.main_info.description")}
+        </p>
+        <button className='button button--gradient'>{t("home_page.main_info.text_button")}</button>
+      </section>
 
-        <img
-          src={MainInfoAvitoProfi}
-          alt='авито, услуги и товары'
-          width={315}
-          className='mr-28 max-lg:mr-10 max-md:ml-auto max-md:mr-0 max-sm:hidden'
-        />
-
-        <div className='bg-white/90 absolute w-64 h-20 rounded-full right-1/4 max-md:right-0 top-0 max-md:top-[30%] max-sm:top-[45%] flex gap-5 p-4 items-center'>
-          <img
-            src={MainInfoDiamond}
-            alt={t("home_page.main_info.description_experience_1")}
-            className='w-12 h-12'
-          />
-          <span className='typography__title--large font-medium'>
-            {t("home_page.main_info.description_experience_1")}
-          </span>
-        </div>
-
-        <div className='bg-white/90 absolute w-80 h-20 rounded-full right-[25%] top-1/2 flex gap-5 p-4 items-center max-md:left-0 max-md:top-[80%]'>
-          <img
-            src={MainInfoMoney}
-            alt={t("home_page.main_info.description_experience_2")}
-            className='w-12 h-12'
-          />
-          <span className='typography__title--large font-medium'>
-            {t("home_page.main_info.description_experience_2")}
-          </span>
-        </div>
-
-        <div className='bg-white/90 absolute w-60 h-20 rounded-full right-0 top-1/2 flex gap-5 p-4 items-center max-2xl:right-[40%] max-2xl:top-[75%] max-md:top-[60%] max-md:left-0'>
-          <img
-            src={MainInfoUpgrowth}
-            alt={t("home_page.main_info.description_experience_3")}
-            className='w-12 h-12'
-          />
-          <span className='typography__title--large font-medium'>
-            {t("home_page.main_info.description_experience_3")}
-          </span>
-        </div>
-      </div>
+      {/* Декоративные карточки */}
+      <section className='relative w-full max-w-4xl h-64 mt-10'>
+        {cards.map(({ img, i18nKey, className }, idx) => (
+          <div
+            key={idx}
+            className={`absolute ${className} bg-white/80 backdrop-blur-md shadow-lg rounded-full flex items-center gap-4 px-6 py-4 h-20 transition-transform duration-300 hover:scale-105 animate-fade-in-up`}>
+            <img src={img} alt={t(i18nKey)} className='w-12 h-12' />
+            <span className='typography__text font-medium'>{t(i18nKey)}</span>
+          </div>
+        ))}
+      </section>
     </article>
   );
 };

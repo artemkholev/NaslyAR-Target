@@ -1,5 +1,5 @@
 .page {
-  @apply w-full max-w-full h-full overflow-y-auto relative;
+  @apply w-full h-full overflow-y-auto relative;
   @apply flex flex-col justify-between items-center;
 }
 

@@ -4,5 +4,5 @@
 }
 
 .tab-box {
-  @apply rounded-[15px] bg-[var(--secondary-bg-black)] p-1;
+  @apply rounded-[15px] bg-[var(--black-100)] p-1;
 }

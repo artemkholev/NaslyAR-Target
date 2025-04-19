@@ -3,7 +3,8 @@
 }
 
 .header__container {
-  @apply h-[60px] flex items-center justify-between bg-white  rounded-[30px] px-[25px];
+  @apply h-[60px] flex items-center justify-between bg-[var(--header-bg)] rounded-3xl px-[25px];
+  box-shadow: var(--shadow-regular);
 }
 
 .header__img {

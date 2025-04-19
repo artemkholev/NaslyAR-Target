@@ -1,26 +1,26 @@
 /* Базовые стили кнопки */
 .button {
-  @apply typography__title--medium--white
-         h-10 w-fit rounded-full
+  @apply typography__text
+         h-10 w-fit rounded-3xl
          px-6 py-2
          transition-colors duration-200
-         bg-[#797EF6] text-white
-         hover:bg-[#898ee9]
-         active:bg-[#5b5fba]
-         focus:outline-none focus:ring-2 focus:ring-[#797EF6] focus:ring-opacity-50;
+         bg-[var(--button-primary-enabled)] !text-white
+         hover:bg-[var(--button-primary-click)]
+         active:bg-green-900
+         focus:outline-none focus:ring-2 focus:ring-[var(--button-primary-enabled)] focus:ring-opacity-50;
 }
 
 /* Модификатор градиента */
 .button--gradient {
-  @apply bg-gradient-bg bg-[length:300%_300%] animate-bg-gradient
-         hover:bg-gradient-to-r hover:from-[#6a6fd8] hover:to-[#4347aa]
-         active:bg-gradient-to-r active:from-[#5b5fba] active:to-[#373b9d];
+  @apply bg-gradient-bg bg-[length:300%_300%] animate-bg-gradient text-center align-middle
+         hover:bg-gradient-to-r hover:from-green-100 hover:to-green-900
+         active:bg-gradient-to-r active:from-green-900 active:to-green-800;
 }
 
 /* Модификатор disabled */
 .button--disabled,
 .button[disabled] {
-  @apply opacity-50 cursor-not-allowed;
+  @apply opacity-50 cursor-not-allowed bg-[var(--button-primary-disabled)];
 }
 
 /* Элемент текста */

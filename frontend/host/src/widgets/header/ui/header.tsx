@@ -6,6 +6,7 @@ import { toggleSidebar } from "@/features/sidebar";
 import { useUser } from "@/entities/user";
 import { CONTENT_NAVIGATION_MENU } from "@/shared/content";
 import TgIcon from "@/shared/assets/icons/header/tg.svg";
+import VkIcon from "@/shared/assets/icons/header/vk.svg";
 import Menu from "@/shared/assets/icons/header/menu.svg";
 import { useAuth } from "@/features/auth";
 import { useToaster } from "@/shared/lib/toaster";
@@ -26,7 +27,7 @@ export const Header: React.FC = () => {
   const navigationContent = showNavigationContent
     ? CONTENT_NAVIGATION_MENU.map((item) => (
         <li key={item.title}>
-          <a href={item.link} className='typography__title--medium'>
+          <a href={item.link} className='typography__text'>
             {item.title}
           </a>
         </li>
@@ -47,7 +48,7 @@ export const Header: React.FC = () => {
       <div className='header__container'>
         <div className='flex items-center gap-10'>
           <a href='/'>
-            <h2 className='typography__title--medium font-bold'>{t("common.company_name")}</h2>
+            <h2 className='typography__title font-bold'>{t("common.company_name")}</h2>
           </a>
           {/* Отображаем навигацию только если showNavigationContent === true */}
           {showNavigationContent && (
@@ -59,19 +60,27 @@ export const Header: React.FC = () => {
 
         <div className='flex gap-5 items-center'>
           <a className='flex items-center gap-3 max-md:hidden' href='tel:+79302406554'>
-            <span className='typography__title--medium'>{t("common.company_phone")}</span>
-            <img className='header__img' src={TgIcon} alt='phone' />
+            <span className='typography__text'>{t("common.company_phone")}</span>
+            <img className='header__img' src={TgIcon} alt='th' />
+          </a>
+
+          <a href='https://vk.com/annaotargetolog?from=groups' target='_blank' rel='noreferrer'>
+            <img className='header__img' src={VkIcon} alt='vk' />
           </a>
 
           {/* Показываем "Login / Registration" только если пользователь не авторизован */}
           {showNavigationButtonLogin ||
             (!isAuthenticated && (
               <a href={AppRoutes.AUTH_LOGIN}>
-                <button className="button button--gradient">{t("login")}</button>
+                <button className='button button--gradient'>{t("login")}</button>
               </a>
             ))}
 
-          {isAuthenticated && <button className="button button--gradient" onClick={handleLogout}>{t("logout")}</button>}
+          {isAuthenticated && (
+            <button className='button button--gradient' onClick={handleLogout}>
+              {t("logout")}
+            </button>
+          )}
 
           {/* Показываем "Admin" только если пользователь авторизован и его роль - admin */}
           {isAuthenticated && user?.role === "admin" && <a href='/admin'>Admin</a>}

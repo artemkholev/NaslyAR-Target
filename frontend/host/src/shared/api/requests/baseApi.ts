@@ -7,6 +7,9 @@ const baseURL = process.env.VITE_API_URL;
 const baseApi = axios.create({
   baseURL: baseURL,
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
   timeout: 10000
 });
 

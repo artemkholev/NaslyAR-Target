@@ -1,4 +1,5 @@
 import React from "react";
+import { AdBanner } from "./ad";
 import { MainInfo } from "./main-info";
 import { Goals } from "./goals";
 import { Process } from "./process";
@@ -8,12 +9,13 @@ import { Price } from "./price";
 import { Cases } from "./cases";
 import { Quations } from "./quations";
 import { Connection } from "./connection";
-import { Request } from './request';
+import { Request } from "./request";
 
 const HomePage: React.FC = () => {
   return (
     <div className='page'>
       <div className='page__container gap-20'>
+        <AdBanner />
         <MainInfo />
         <Goals />
         <Process />

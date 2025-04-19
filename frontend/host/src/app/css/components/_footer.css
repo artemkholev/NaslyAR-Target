@@ -1,10 +1,13 @@
 .footer {
-  @apply w-full flex flex-row items-center justify-around bg-white/90 backdrop-blur-[10px] fixed bottom-0;
-  @apply min-h-[60px] !important;
+  @apply w-full flex justify-center;
+}
+
+.footer__container {
+  @apply flex items-center justify-center gap-[150px] max-lg:gap-8 p-10 max-lg:p-20 max-lg:flex-col max-md:gap-10;
 }
 
 /* /////// media requests */
-.footer {
+.footer__container {
   @apply w-[1400px];
 }
 

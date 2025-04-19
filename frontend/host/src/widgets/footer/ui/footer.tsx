@@ -1,23 +1,28 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 export const Footer: React.FC = () => {
   const year = new Date().getFullYear();
   const { t } = useTranslation();
 
   return (
-    <footer className='w-full flex justify-center'>
-      <div className='w-[1200px] max-2xl:w-[1000px] max-lg:w-[90%] flex items-center justify-center gap-[150px] text-[10px] max-lg:gap-8 p-10 max-lg:p-20 max-lg:flex-col max-md:gap-10'>
-        <div className='flex items-center text-nowrap'>
+    <motion.footer
+      className='py-6 mt-12'
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}>
+      <div className='max-w-screen-xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 typography__meta text-black-700 text-sm text-center md:text-left'>
+        <span className='whitespace-nowrap'>
           © {year} «{t("common.company_name")}» — {t("footer.description")}
-        </div>
+        </span>
 
-        <div className='flex items-center text-center'>{t("footer.permission")}</div>
+        <span className="text-center">{t("footer.permission")}</span>
 
-        <div className='flex items-center text-nowrap'>
+        <span className='whitespace-nowrap'>
           {t("footer.developed_by")} {t("common.development_company")}
-        </div>
+        </span>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
