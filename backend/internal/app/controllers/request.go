@@ -16,6 +16,12 @@ import (
 	"github.com/google/uuid"
 )
 
+const (
+	PENDING          = "В ожидании"
+	UNDER_PROCESSING = "В обработке"
+	CLOSED           = "Закрыто"
+)
+
 // CreateRequest создает новый запрос
 func CreateRequest(c *gin.Context) {
 	userID, exists := c.Get("user_id")
@@ -59,7 +65,7 @@ func CreateRequest(c *gin.Context) {
 		Niche:       input.Niche,
 		Title:       input.Title,
 		Description: input.Description,
-		Status:      "pending",
+		Status:      PENDING,
 	}
 
 	if err := configs.DB.Create(&request).Error; err != nil {
@@ -78,6 +84,51 @@ func CreateRequest(c *gin.Context) {
 		"success": true,
 		"data":    request,
 	})
+}
+
+func ChangeRequestStatus(c *gin.Context) {
+	id := c.Param("id")
+
+	var request models.Request
+	if err := configs.DB.First(&request, "id = ?", id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Запрос не найден"})
+		return
+	}
+
+	var input struct {
+		Status string `json:"status" binding:"required"`
+	}
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":   "Некорректные данные",
+			"details": getValidationErrors(err),
+		})
+		return
+	}
+
+	// Проверяем, что статус имеет корректное значение
+	validStatuses := []string{PENDING, UNDER_PROCESSING, CLOSED}
+	if !contains(validStatuses, input.Status) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":   "Некорректный статус",
+			"details": fmt.Sprintf("Статус должен быть одним из: %v", validStatuses),
+		})
+		return
+	}
+
+	// Обновляем статус запроса
+	request.Status = input.Status
+
+	if err := configs.DB.Save(&request).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error":   "Ошибка при обновлении статуса запроса",
+			"details": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": request})
 }
 
 // GetRequests возвращает список всех запросов
@@ -240,4 +291,14 @@ func sendAdminNotification(request models.Request) {
 	if err := NotifyAdminAboutNewRequest(adminEmail, requestDetails); err != nil {
 		log.Printf("Ошибка отправки уведомления админу %s: %v", adminEmail, err)
 	}
+}
+
+// Вспомогательная функция для проверки наличия значения в массиве
+func contains(slice []string, value string) bool {
+	for _, v := range slice {
+		if v == value {
+			return true
+		}
+	}
+	return false
 }

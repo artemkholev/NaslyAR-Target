@@ -26,6 +26,7 @@ func SetupRoutes(r *gin.Engine) {
 		requestsGroup := apiGroup.Group("/requests")
 		{
 			requestsGroup.POST("/", controllers.CreateRequest)
+			requestsGroup.POST("/change-request-status", controllers.ChangeRequestStatus)
 			requestsGroup.GET("/", controllers.GetRequests)
 			requestsGroup.GET("/:id", controllers.GetRequestByID)
 			requestsGroup.PUT("/:id", controllers.UpdateRequest)
@@ -40,4 +41,7 @@ func SetupRoutes(r *gin.Engine) {
 			usersGroup.DELETE("/:id", controllers.DeleteUser)
 		}
 	}
+
+	// goAdmin
+	
 }

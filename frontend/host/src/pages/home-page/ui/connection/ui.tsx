@@ -72,7 +72,7 @@ export const Connection = () => {
       } else {
         throw new Error("Неверный формат ответа от сервера");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Ошибка при отправке запроса:", error);
       setSubmitError(
         error.response?.data?.message ||

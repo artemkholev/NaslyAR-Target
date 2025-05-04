@@ -33,7 +33,6 @@ type UserResponse struct {
 	Role      string    `json:"role"`
 }
 
-
 // HashPassword hashes the user's password before saving it to the database.
 func (u *User) HashPassword(password string) error {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)

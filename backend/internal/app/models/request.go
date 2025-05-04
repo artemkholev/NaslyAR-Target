@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
@@ -13,6 +15,9 @@ type Request struct {
 	Title       string    `gorm:"not null" json:"title"`         // Название запроса
 	Description string    `json:"description"`                   // Дополнительное описание
 	Status      string    `gorm:"default:pending" json:"status"` // Статус: "pending", "approved", "rejected"
+	CreatedAt  time.Time      `json:"created_at"`
+	UpdatedAt  time.Time      `json:"updated_at"`
+	DeletedAt  gorm.DeletedAt `gorm:"index" json:"-"`
 }
 
 // BeforeCreate is a GORM hook that generates a UUID for the request before creation.
