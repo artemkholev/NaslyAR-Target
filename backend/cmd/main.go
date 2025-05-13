@@ -61,6 +61,7 @@ func runAppMigrations() {
 		&models.Request{},
 		&models.RefreshToken{},
 		&models.VerificationToken{},
+		&models.Notification{},
 	)
 	if err != nil {
 		log.Fatal("App migrations failed:", err)

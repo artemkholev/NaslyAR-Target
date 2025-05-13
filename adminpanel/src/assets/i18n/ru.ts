@@ -36,9 +36,8 @@ export const locale = {
       Login: {
         welcomeHeader: 'Добро пожаловать',
         welcomeMessage:
-          // eslint-disable-next-line max-len
-          'в AdminJS - ведущую open-source админ-панель для вашего Node.js приложения, которая позволяет управлять всеми данными в одном месте',
-        loginButton: 'Войти',
+          'Добро пожаловать в систему управления для специалиста по таргетированной рекламе. Здесь вы можете вести клиентов, управлять кампаниями и анализировать данные в одном месте.',
+        loginButton: 'Войти в админку',
       },
     },
     labels: {
@@ -49,6 +48,8 @@ export const locale = {
       adminVersion: 'Admin: {{version}}',
       appVersion: 'Приложение: {{version}}',
       dashboard: 'Панель управления',
+
+      Request: 'Запросы',
     },
     messages: {
       successfullyBulkDeleted: 'Успешно удалено {{count}} запись',
@@ -107,6 +108,21 @@ export const locale = {
       pageNotFound_subtitle: 'Страница <strong>"{{pageName}}"</strong> не существует',
       componentNotFound_title: 'Компонент не указан',
       componentNotFound_subtitle: 'Необходимо указать компонент для отображения этого элемента',
+    },
+    properties: {
+      // requests
+      title: 'Название',
+      id: 'Идентификатор',
+      user_id: 'Пользователь',
+      phone: 'Телефон',
+      niche: 'Ниша',
+      description: 'Описание',
+      status: 'Статус',
+      createdAt: 'Создано',
+      updatedAt: 'Обновлено',
+      deletedAt: 'Удалено',
+
+      message: 'Сообщение'
     },
   },
 };

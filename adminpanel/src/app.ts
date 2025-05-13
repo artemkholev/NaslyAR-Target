@@ -2,6 +2,8 @@ import express from 'express';
 import AdminJS from 'adminjs';
 import { buildAuthenticatedRouter } from '@adminjs/express';
 
+import dashboardNotificationsRoute from './routes/admin-dashboard.js';
+
 import provider from './admin/auth-provider.js';
 import options from './admin/options.js';
 import initializeDb from './db/index.js';
@@ -36,6 +38,8 @@ const start = async () => {
     }
   );
 
+  app.use('/admin', dashboardNotificationsRoute);
+  app.use('/public', express.static('public'));
   app.use(admin.options.rootPath, router);
 
   app.listen(port, () => {
