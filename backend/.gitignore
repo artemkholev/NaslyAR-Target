@@ -2,28 +2,117 @@
 
 # Go build artifacts
 *.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 *.test
 *.out
+*.prof
+*.trace
+
+# Go workspace files
+/bin/
+/pkg/
+/dist/
 
 # Dependency directories
 vendor/
+
+# Go modules
+go.sum
+go.mod
 
 # Air hot reload files
 .air
 .air.toml
 
-# local env files
-.env*.local 
+# Local environment files
 .env
+.env.local
+.env.*.local
 
 # Logs
 *.log
+logs/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
 
 # Git files
-.git
+.git/
+.gitignore
 
 # Temporary files
 tmp/
 *.tmp
-/bin/
-/pkg/
+*.temp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Coverage files
+coverage.txt
+coverage.out
+*.coverprofile
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories (dep and modules)
+vendor/
+go.mod
+go.sum
+
+# Go workspace file
+go.work
+go.work.sum
+
+# Local development files
+.local/
+.devcontainer/
+
+# Binaries for programs and plugins
+bin/
+pkg/
+dist/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Debug files
+debug
+*.debug
+
+# Backup files
+*.bak
+*.backup
+
+# Compiled Object files, Static and Dynamic libs
+*.o
+*.a
+*.lib
+
+# Ignore specific directories
+/node_modules/
+/.cache/
+/.vscode/
+/.idea/

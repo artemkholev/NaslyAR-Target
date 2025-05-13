@@ -1,36 +1,36 @@
-# Offical Golang image as a build stage
+# Stage 1: Build the Go app
 FROM golang:1.23-alpine AS builder
 
-# Set the current working directory inside the conatiner
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Copy the GO modules files first to cache the dependencies
+# Копируем зависимости и скачиваем их
 COPY go.mod go.sum ./
-
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
 RUN go mod download
 
-# Copy the rest of the source code into container
+# Копируем весь исходный код в контейнер
 COPY . .
 
-# Build the Go app binary.
+# Собираем приложение
 RUN go build -o go-crud ./cmd
 
-# Build the migration binary
-RUN go build -o migrate ./migrate/migrate.go
-
-# Use a minimal image for running the application
+# Stage 2: Create minimal runtime image
 FROM alpine:3.18
 
-# Set the Current Working Directory inside the contianer
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Copy the pre-built binary files from builder stage
+# Устанавливаем сертификаты для работы с TLS, если необходимо
+RUN apk add --no-cache ca-certificates
+
+# Копируем скомпилированное приложение из build-этапа
 COPY --from=builder /app/go-crud .
-COPY --from=builder /app/migrate .
 
-# Expose the port the app runs on
-EXPOSE ${PORT}
+# Копируем конфигурационные файлы (.env, если нужно)
+COPY .env .env
 
-# Command to run the migrations and then start the server
-CMD ["sh", "-c", "./migrate && ./go-crud"]
+# Открываем порт, на котором приложение будет работать
+EXPOSE 8080
+
+# Запускаем приложение
+CMD ["./go-crud"]

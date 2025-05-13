@@ -1,0 +1,12 @@
+/* local components */
+@import "./_body.css";
+@import "./_box.css";
+@import "./_page.css";
+@import "./_header.css";
+@import "./_footer.css";
+@import "./_sidebar.css";
+@import "./_form.css";
+@import "./_button.css"
+
+/* material ui components */
+/* @import "./_wizard.css"; */
