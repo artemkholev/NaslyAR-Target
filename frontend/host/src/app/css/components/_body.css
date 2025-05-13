@@ -1,0 +1,17 @@
+html, body {
+  @apply h-full w-full;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body {
+  @apply bg-[var(--main-bg)];
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+div#app {
+  @apply h-screen w-full flex flex-col container mx-auto;
+}

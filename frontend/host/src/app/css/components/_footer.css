@@ -1,0 +1,36 @@
+.footer {
+  @apply w-full flex justify-center;
+}
+
+.footer__container {
+  @apply flex items-center justify-center gap-[150px] max-lg:gap-8 p-10 max-lg:p-20 max-lg:flex-col max-md:gap-10;
+}
+
+/* /////// media requests */
+.footer__container {
+  @apply w-[1400px];
+}
+
+@media (max-width: 1536px) {
+  .footer {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    max-width: 400px;
+  }
+}
