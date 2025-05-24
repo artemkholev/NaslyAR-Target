@@ -8,18 +8,18 @@ const configs = {
   appName: "auth",
   appFileName: "remoteEntry.js",
   development: {
-    PUBLIC_PATH: "http://localhost:3003/",
+    PUBLIC_PATH: "http://localhost:3001/",
     REMOTE_PATHS: {
       host: "host@http://localhost:3000/remoteEntry.js",
     },
-    PORT: 3003,
+    PORT: 3001,
   },
   production: {
-    PUBLIC_PATH: "http://localhost:3003/",
+    PUBLIC_PATH: "http://localhost:3001/",
     REMOTE_PATHS: {
       host: "host@http://localhost:3000/remoteEntry.js",
     },
-    PORT: 3003,
+    PORT: 3001,
   },
 };
 

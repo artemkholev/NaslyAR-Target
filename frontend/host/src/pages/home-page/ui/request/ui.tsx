@@ -1,5 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { AppRoutes } from "@/app/router";
 
 const fadeIn = {
   hidden: { opacity: 0 },
@@ -27,14 +29,16 @@ export const Request = () => {
         Мы создадим рекламную кампанию, которая выйдет за пределы обычных решений. Давайте обсудим,
         как таргетинг может работать для вашего бизнеса.
       </motion.p>
-      <motion.button
-        className='button button--gradient'
-        variants={fadeIn}
-        initial='hidden'
-        animate='visible'
-        transition={{ duration: 1, delay: 0.5 }}>
-        Узнать подробнее
-      </motion.button>
+      <Link to={AppRoutes.ABOUT_TARGET}>
+        <motion.button
+          className='button button--gradient'
+          variants={fadeIn}
+          initial='hidden'
+          animate='visible'
+          transition={{ duration: 1, delay: 0.5 }}>
+          Узнать подробнее
+        </motion.button>
+      </Link>
     </section>
   );
 };

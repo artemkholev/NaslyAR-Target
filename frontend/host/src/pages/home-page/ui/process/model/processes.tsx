@@ -1,23 +1,18 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { motion, Variants } from "framer-motion";
 import clsx from "clsx";
-import { motion } from "framer-motion";
-
-import ProcessFirstElem from "@/shared/assets/images/main-page/process/first-elem.png";
-import ProcessSecondElem from "@/shared/assets/images/main-page/process/second-elem.png";
-import ProcessThirdElem from "@/shared/assets/images/main-page/process/third-elem.png";
-import ProcessFourthElem from "@/shared/assets/images/main-page/process/fourth-elem.png";
+import { SearchCheck, Settings, BarChart4, Handshake } from "lucide-react";
 
 interface ProcessItem {
   id: number;
   bgColor: string;
   text: string;
-  img: string;
-  alt: string;
+  Icon: React.FC<{ size?: number; className?: string }>;
 }
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
@@ -26,73 +21,94 @@ const fadeInUp = {
 };
 
 const ProcessCard = ({ process }: { process: ProcessItem }) => {
-  const isRight = process.id % 2 !== 0;
+  const isLeft = process.id % 2 === 0;
 
   return (
     <motion.div
       initial='hidden'
       whileInView='visible'
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.4 }}
       variants={fadeInUp}
-      className={clsx(
-        "relative mb-16 w-full md:w-1/2 px-4",
-        isRight ? "md:self-end" : "md:self-start"
-      )}>
-      <div className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 z-10'>
-        <div className='w-10 h-10 rounded-full bg-white border-4 border-gray-300 flex items-center justify-center font-semibold text-gray-800'>
+      whileHover={{ scale: 1.03, y: -5 }}
+      className='relative mb-20'>
+      {/* Точка и линия */}
+      <div className='absolute top-6 md:top-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center'>
+        <div
+          className='w-12 h-12 rounded-full flex items-center justify-center font-bold text-white shadow-lg'
+          style={{ backgroundColor: "#639149" }}>
           {process.id + 1}
         </div>
+        <div className='w-1 h-20 bg-[#7da662] mt-1 rounded' />
       </div>
 
+      {/* Карточка */}
       <div
-        className='bg-white p-6 rounded-3xl shadow-xl flex items-center gap-4'
-        style={{ backgroundColor: process.bgColor }}>
-        <img src={process.img} alt={process.alt} className='w-14 h-14 object-contain' />
-        <p className='typography__text'>{process.text}</p>
+        className={clsx(
+          "absolute md:static px-4 w-full md:w-auto",
+          isLeft ? "mr-[500px]" : "ml-[500px]"
+        )}>
+        <div
+          className='p-8 rounded-3xl shadow-md flex items-center gap-4'
+          style={{
+            backgroundColor: "#f0f0e4",
+            color: "#2a2a2a",
+            minHeight: "160px",
+            flexDirection: isLeft ? "row" : "row-reverse",
+          }}>
+          <div className='p-4 rounded-full' style={{ backgroundColor: "#8aab55" }}>
+            <process.Icon size={40} className='text-white' />
+          </div>
+          <p className='text-lg font-semibold max-w-xs leading-relaxed'>{process.text}</p>
+        </div>
       </div>
     </motion.div>
   );
 };
 
 export const ProcessesList = () => {
-  const { t } = useTranslation("library");
+  const { t } = useTranslation();
 
   const processes: ProcessItem[] = [
     {
       id: 0,
-      bgColor: "#E7F0F4",
+      bgColor: "#f0f0e4", // green.20
       text: t("home_page.process.process_1"),
-      img: ProcessFirstElem,
-      alt: t("home_page.process.process_1"),
+      Icon: SearchCheck,
     },
     {
       id: 1,
-      bgColor: "#E1F0F5",
+      bgColor: "#f0f0e4",
       text: t("home_page.process.process_2"),
-      img: ProcessSecondElem,
-      alt: t("home_page.process.process_2"),
+      Icon: Settings,
     },
     {
       id: 2,
-      bgColor: "#C1D2F9",
+      bgColor: "#f0f0e4",
       text: t("home_page.process.process_3"),
-      img: ProcessThirdElem,
-      alt: t("home_page.process.process_3"),
+      Icon: BarChart4,
     },
     {
       id: 3,
-      bgColor: "#86BFD9",
+      bgColor: "#f0f0e4",
       text: t("home_page.process.process_4"),
-      img: ProcessFourthElem,
-      alt: t("home_page.process.process_4"),
+      Icon: Handshake,
     },
   ];
 
   return (
-    <>
-      {processes.map((process) => (
-        <ProcessCard key={process.id} process={process} />
-      ))}
-    </>
+    <section
+      className='max-w-5xl mx-auto px-6 py-16'
+      style={{ backgroundColor: "#fefef4" /* green.10 */ }}>
+      <div className='relative'>
+        {/* Вертикальная линия посередине */}
+        <div
+          className='hidden md:block absolute top-10 bottom-10 left-1/2 -translate-x-1/2 w-1 bg-[#7da662] rounded'
+          style={{ backgroundColor: "#7da662" /* green.100 */ }}
+        />
+        {processes.map((process) => (
+          <ProcessCard key={process.id} process={process} />
+        ))}
+      </div>
+    </section>
   );
 };

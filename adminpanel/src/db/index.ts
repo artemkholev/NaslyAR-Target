@@ -2,6 +2,7 @@ import { Database, Resource } from '@adminjs/sequelize';
 import AdminJS from 'adminjs';
 
 import sequelize from './config.js';
+import '../models/associations.js';
 
 AdminJS.registerAdapter({
   Database,

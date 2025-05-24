@@ -10,24 +10,30 @@ import { Cases } from "./cases";
 import { Quations } from "./quations";
 import { Connection } from "./connection";
 import { Request } from "./request";
+import { ScrollProgress } from "@/shared/ui/scroll";
+import { PageBackground } from "@/shared/ui/background";
 
 const HomePage: React.FC = () => {
   return (
-    <div className='page'>
-      <div className='page__container gap-20'>
-        <AdBanner />
-        <MainInfo />
-        <Goals />
-        <Process />
-        <Ivocation />
-        <Price />
-        {/* <Discount /> */}
-        <Cases />
-        <Quations />
-        <Connection />
-        <Request />
+    <>
+      <ScrollProgress />
+      <PageBackground /> {/* декоративные края */}
+      <div className='page'>
+        <div className='page__container gap-20'>
+          <AdBanner />
+          <MainInfo />
+          <Goals />
+          <Process />
+          <Ivocation />
+          <Price />
+          {/* <Discount /> */}
+          <Cases />
+          <Quations />
+          <Connection />
+          <Request />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

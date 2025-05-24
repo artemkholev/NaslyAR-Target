@@ -11,18 +11,14 @@ const configs = {
   development: {
     PUBLIC_PATH: "http://localhost:3000/",
     REMOTE_PATHS: {
-      user: "user@http://localhost:3001/remoteEntry.js",
-      admin: "admin@http://localhost:3002/remoteEntry.js",
-      auth: "auth@http://localhost:3003/remoteEntry.js",
+      auth: "auth@http://localhost:3001/remoteEntry.js",
     },
     PORT: 3000,
   },
   production: {
     PUBLIC_PATH: "http://localhost:3000/",
     REMOTE_PATHS: {
-      user: "user@http://localhost:3001/remoteEntry.js",
-      admin: "admin@http://localhost:3002/remoteEntry.js",
-      auth: "auth@http://localhost:3003/remoteEntry.js",
+      auth: "auth@http://localhost:3001/remoteEntry.js",
     },
     PORT: 3000,
   },
@@ -60,6 +56,10 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
+        {
+          test: /\.json$/,
+          type: "json",
+        },
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
           type: "asset/resource",
@@ -121,9 +121,14 @@ module.exports = (env, argv) => {
           "./Input": "./src/shared/ui/input/ui.tsx",
         },
         shared: {
-          ...deps,
           react: { singleton: true, requiredVersion: deps.react },
           "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
+          "@emotion/react": { singleton: true, requiredVersion: deps["@emotion/react"] },
+          "@emotion/styled": { singleton: true, requiredVersion: deps["@emotion/styled"] },
+          "react-router-dom": { singleton: true, requiredVersion: deps["react-router-dom"] },
+          "react-redux": { singleton: true, requiredVersion: deps["react-redux"] },
+          "@reduxjs/toolkit": { singleton: true, requiredVersion: deps["@reduxjs/toolkit"] },
+          zustand: { singleton: true, requiredVersion: deps["zustand"] },
         },
       }),
       new HtmlWebPackPlugin({

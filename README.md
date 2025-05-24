@@ -3,6 +3,7 @@
 ### Запуск проекта
 docker compose up --build
 
+docker-compose down && docker-compose build && docker-compose up -d
 ### После запуска:
 
 - Frontend (host): http://localhost:3000 (основной микросервис, отвечает залогику отображения основных страниц сервиса)

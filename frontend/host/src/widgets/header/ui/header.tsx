@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { toggleSidebar } from "@/features/sidebar";
 import { useUser } from "@/entities/user";
 import { CONTENT_NAVIGATION_MENU } from "@/shared/content";
@@ -47,9 +47,9 @@ export const Header: React.FC = () => {
     <header className='header'>
       <div className='header__container'>
         <div className='flex items-center gap-10'>
-          <a href='/'>
+          <Link to='/'>
             <h2 className='typography__title font-bold'>{t("common.company_name")}</h2>
-          </a>
+          </Link>
           {/* Отображаем навигацию только если showNavigationContent === true */}
           {showNavigationContent && (
             <nav className='max-md:hidden'>
@@ -71,9 +71,9 @@ export const Header: React.FC = () => {
           {/* Показываем "Login / Registration" только если пользователь не авторизован */}
           {showNavigationButtonLogin ||
             (!isAuthenticated && (
-              <a href={AppRoutes.AUTH_LOGIN}>
+              <Link to={AppRoutes.AUTH_LOGIN}>
                 <button className='button button--gradient'>{t("login")}</button>
-              </a>
+              </Link>
             ))}
 
           {isAuthenticated && (

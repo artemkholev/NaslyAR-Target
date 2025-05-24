@@ -2,20 +2,22 @@ import { AdminJSOptions } from 'adminjs';
 import componentLoader from './component-loader.js';
 import { locale } from '../assets/i18n/ru.js';
 import { components } from './component-loader.js';
+import sequelize from '../db/config.js';
 
 // resources
 import userResource from '../resources/user.resource.js';
 import requestResource from '../resources/request.resource.js';
 import notificationResource from '../resources/notification.resource.js';
+import tariffResource from '../resources/tariff.resource.js';
 
 const options: AdminJSOptions = {
   componentLoader,
   rootPath: '/admin',
-  resources: [userResource, requestResource, notificationResource],
+  resources: [userResource, requestResource, notificationResource, tariffResource],
   dashboard: {
     component: components.Dashboard,
   },
-  databases: [],
+  databases: [sequelize],
   locale: {
     language: 'ru',
     translations: locale,

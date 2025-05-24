@@ -6,7 +6,7 @@ import PriceCheckMark from "@/shared/assets/images/main-page/price/check-mark.pn
 import PriceArrow from "@/shared/assets/images/main-page/price/arrow.png";
 
 export const Price = () => {
-  const { t } = useTranslation("library");
+  const { t } = useTranslation();
 
   const tariffs = [
     {

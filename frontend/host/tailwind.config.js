@@ -63,6 +63,8 @@ module.exports = {
         "gradient-bg": "linear-gradient(90deg, #639149, #7da662, #8aab55)",
       },
       animation: {
+        "light-slide": "light-slide 2s ease-in-out infinite alternate",
+        "glow-pulse": "glow-pulse 2.5s ease-in-out infinite",
         "bg-gradient": "bg-gradient 8s ease infinite",
         "fade-in-up": "fade-in-up 0.6s ease-out both",
         "fade-in": "fade-in 0.6s ease-out",
@@ -70,6 +72,14 @@ module.exports = {
         bounce: "bounce 1s infinite",
       },
       keyframes: {
+        "light-slide": {
+          "0%": { top: "0%" },
+          "100%": { top: "75%" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { transform: "translateY(0)", opacity: "0.3" },
+          "50%": { transform: "translateY(20%)", opacity: "0.9" },
+        },
         "bg-gradient": {
           "0%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },

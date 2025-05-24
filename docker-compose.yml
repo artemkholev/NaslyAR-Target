@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
 
 services:
   postgres:
@@ -11,6 +11,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - app-network
 
   backend:
     build: ./backend
@@ -31,24 +33,41 @@ services:
       PORT: 8080
     depends_on:
       - postgres
-
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - app-network
   frontend-host:
-    build: ./frontend/host
+    build:
+      context: ./frontend/host
+      dockerfile: Dockerfile
     ports:
       - "3000:80"
+    volumes:
+      - ./frontend/host/nginx:/etc/nginx/conf.d:ro
     environment:
       VITE_API_URL: http://backend:8080
     depends_on:
       - backend
-
+    networks:
+      - app-network
   frontend-auth:
-    build: ./frontend/auth
+    build:
+      context: ./frontend/auth
+      dockerfile: Dockerfile
     ports:
       - "3001:80"
+    volumes:
+      - ./frontend/auth/nginx:/etc/nginx/conf.d:ro
     environment:
       VITE_API_URL: http://backend:8080
     depends_on:
       - backend
+    networks:
+      - app-network
 
   adminpanel:
     build: ./adminpanel
@@ -65,6 +84,12 @@ services:
       PORT: 4000
     depends_on:
       - postgres
+    networks:
+      - app-network
 
 volumes:
   postgres_data:
+
+networks:
+  app-network:
+    driver: bridge

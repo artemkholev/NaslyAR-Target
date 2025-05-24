@@ -2,12 +2,12 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 export const Ivocation = () => {
-  const { t } = useTranslation("library");
+  const { t } = useTranslation();
 
   return (
     <section
       id='ivocation'
-      className='page__box flex justify-center items-center py-20 bg-gradient-to-b from-white to-green-10 rounded-[40px]'>
+      className='page__box flex justify-center items-center py-20 bg-gradient-to-b bg-[--component-bg] rounded-[40px]'>
       <div className='w-full max-w-6xl px-6 md:px-12 grid md:grid-cols-2 gap-10 items-center'>
         {/* Текстовая часть */}
         <div className='space-y-6'>

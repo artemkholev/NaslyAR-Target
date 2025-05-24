@@ -40,8 +40,15 @@ func SetupRoutes(r *gin.Engine) {
 			usersGroup.PUT("/:id", controllers.UpdateUser)
 			usersGroup.DELETE("/:id", controllers.DeleteUser)
 		}
+
+		tariffs := r.Group("/tariffs")
+		{
+			tariffs.GET("/main", controllers.GetMainTariffs)
+			tariffs.GET("/", controllers.GetAllTariffs)
+			tariffs.GET("/:id", controllers.GetTariffByID)
+		}
 	}
 
 	// goAdmin
-	
+
 }
