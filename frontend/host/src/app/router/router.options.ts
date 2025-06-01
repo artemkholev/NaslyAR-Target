@@ -7,6 +7,8 @@ export enum AppRoutes {
   PRIVACY_POLICY = "/privacy-policy",
   ABOUT_TARGET = "/about-target",
   NOT_FOUND = "*",
+  TARIFFS = "/tariffs",
+  TARIFF = "/tariffs/:id",
   // private user
   USER = "user",
   REQUEST = "/user/request",

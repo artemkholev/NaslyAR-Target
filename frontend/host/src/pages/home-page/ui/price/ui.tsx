@@ -3,10 +3,17 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Sparkles } from "lucide-react";
 import { fetchMainTariffs, type Tariff } from "@/entities/tariff";
+import { useNavigate } from "react-router-dom";
+import { AppRoutes } from "@/app/router";
 
 export const Price = () => {
   const { t } = useTranslation();
   const [tariffs, setTariffs] = useState<Tariff[]>([]);
+  const navigate = useNavigate();
+
+  const handleSelectTariff = (tariffId: string) => {
+    navigate(`${AppRoutes.TARIFF.replace(":id", tariffId)}`);
+  };
 
   useEffect(() => {
     const loadTariffs = async () => {
@@ -141,6 +148,7 @@ export const Price = () => {
                   {/* Кнопка */}
                   <motion.button
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => tariff.id && handleSelectTariff(tariff.id)}
                     className='button button--gradient w-full flex items-center justify-center gap-2 py-4 rounded-lg overflow-hidden relative group'>
                     <span className='relative z-10'>{t("home_page.price.select")}</span>
                     <ArrowRight className='w-5 h-5 z-10' />

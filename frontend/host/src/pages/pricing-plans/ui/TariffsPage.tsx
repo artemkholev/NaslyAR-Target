@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 import { TariffCard } from "@/entities/tariff";
 
-export const TariffsPage = () => {
+const TariffsPage = () => {
   const { t } = useTranslation();
 
   const tariffs = [
@@ -98,3 +98,5 @@ export const TariffsPage = () => {
     </section>
   );
 };
+
+export default TariffsPage;

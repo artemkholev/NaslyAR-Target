@@ -12,6 +12,7 @@ const AuthPage = React.lazy(() => import("auth/AuthPage"));
 const UserPage = React.lazy(() => import("@/pages/home-page"));
 const PrivacyPolicyPage = React.lazy(() => import("@/pages/privacy-policy"));
 const AboutTargetPage = React.lazy(() => import("@/pages/about-target"));
+const TariffPage = React.lazy(() => import("@/pages/pricing-plans/ui/TariffPage"));
 
 const ErrorFallback: React.FC = () => {
   return <div>Произошла ошибка при загрузке страницы.</div>;
@@ -23,6 +24,7 @@ const App: React.FC = () => (
       {/* Публичные маршруты */}
       <Route path={AppRoutes.PRIVACY_POLICY} element={<PrivacyPolicyPage />} />
       <Route path={AppRoutes.ABOUT_TARGET} element={<AboutTargetPage />} />
+      <Route path={AppRoutes.TARIFF} element={<TariffPage />} />
       {/* Публичные маршруты - микрофронты */}
       <Route
         path={AppRoutes.HOME}
