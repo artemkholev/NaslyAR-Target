@@ -1,3 +1,3 @@
-import { TariffCard } from "./ui/TariffCard";
-
-export { TariffCard };
+export * from "./api";
+export * from "./lib";
+export * from "./ui";

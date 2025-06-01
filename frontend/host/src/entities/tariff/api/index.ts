@@ -4,7 +4,7 @@ import { Tariff } from "../lib";
 // Получить тарифы для главной страницы (фильтрованные)
 export async function fetchMainTariffs(): Promise<Tariff[]> {
   try {
-    const { data } = await baseApi.get<Tariff[]>("/api/tariffs/main");
+    const { data } = await baseApi.get<Tariff[]>("/tariffs/main");
     return data;
   } catch (error) {
     console.error("Failed to fetch main page tariffs", error);
@@ -15,7 +15,7 @@ export async function fetchMainTariffs(): Promise<Tariff[]> {
 // Получить полный список тарифов
 export async function fetchAllTariffs(): Promise<Tariff[]> {
   try {
-    const { data } = await baseApi.get<Tariff[]>("/api/tariffs");
+    const { data } = await baseApi.get<Tariff[]>("/tariffs");
     return data;
   } catch (error) {
     console.error("Failed to fetch all tariffs", error);
@@ -26,7 +26,7 @@ export async function fetchAllTariffs(): Promise<Tariff[]> {
 // Получить тариф по ID
 export async function fetchTariffById(id: string): Promise<Tariff> {
   try {
-    const { data } = await baseApi.get<Tariff>(`/api/tariffs/${id}`);
+    const { data } = await baseApi.get<Tariff>(`/tariffs/${id}`);
     return data;
   } catch (error) {
     console.error(`Failed to fetch tariff with id ${id}`, error);

@@ -1,58 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-
-import PriceCheckMark from "@/shared/assets/images/main-page/price/check-mark.png";
-import PriceArrow from "@/shared/assets/images/main-page/price/arrow.png";
+import { Check, ArrowRight, Sparkles } from "lucide-react";
+import { fetchMainTariffs, type Tariff } from "@/entities/tariff";
 
 export const Price = () => {
   const { t } = useTranslation();
+  const [tariffs, setTariffs] = useState<Tariff[]>([]);
 
-  const tariffs = [
-    {
-      title: t("home_page.price.tariff_1.title"),
-      price: t("home_page.price.tariff_1.price"),
-      oldPrice: t("home_page.price.tariff_1.price_not"),
-      features: [
-        t("home_page.price.tariff_1.li_1"),
-        t("home_page.price.tariff_1.li_2"),
-        t("home_page.price.tariff_1.li_3"),
-        t("home_page.price.tariff_1.li_4"),
-        t("home_page.price.tariff_1.li_5"),
-      ],
-    },
-    {
-      title: t("home_page.price.tariff_2.title"),
-      price: t("home_page.price.tariff_2.price"),
-      oldPrice: t("home_page.price.tariff_2.price_not"),
-      description: t("home_page.price.tariff_2.discription"),
-      features: [
-        t("home_page.price.tariff_2.li_1"),
-        t("home_page.price.tariff_2.li_2"),
-        t("home_page.price.tariff_2.li_3"),
-        t("home_page.price.tariff_2.li_4"),
-      ],
-    },
-    {
-      title: t("home_page.price.tariff_3.title"),
-      price: t("home_page.price.tariff_3.price"),
-      oldPrice: t("home_page.price.tariff_2.price_not"),
-      description: t("home_page.price.tariff_2.discription"),
-      features: [
-        t("home_page.price.tariff_3.li_1"),
-        t("home_page.price.tariff_3.li_2"),
-        t("home_page.price.tariff_3.li_3"),
-        t("home_page.price.tariff_3.li_4"),
-        t("home_page.price.tariff_3.li_5"),
-        t("home_page.price.tariff_3.li_6"),
-        t("home_page.price.tariff_3.li_7"),
-      ],
-    },
-  ];
+  useEffect(() => {
+    const loadTariffs = async () => {
+      try {
+        const data = await fetchMainTariffs();
+        setTariffs(data);
+      } catch (err) {
+        console.error("Failed to load tariffs:", err);
+      }
+    };
+    loadTariffs();
+  }, [t]);
 
   const containerVariants = {
-    hidden: {},
+    hidden: { opacity: 0 },
     show: {
+      opacity: 1,
       transition: {
         staggerChildren: 0.15,
       },
@@ -61,76 +32,130 @@ export const Price = () => {
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
+    hover: {
+      y: -8,
+      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.08)",
+    },
   };
 
   return (
-    <section id='price' className='relative page__box py-20'>
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        className='typography__title font-bold mb-6 text-center'>
-        {t("home_page.price.title")}
-      </motion.h1>
+    <section id='price' className='relative py-24 bg-[var(--main-bg)] overflow-hidden'>
+      {/* Декоративные элементы */}
+      <div className='absolute inset-0 overflow-hidden opacity-10 pointer-events-none'>
+        <div className='absolute top-20 left-10 w-64 h-64 bg-[var(--text-green)] rounded-full filter blur-[80px]'></div>
+        <div className='absolute bottom-10 right-10 w-72 h-72 bg-[var(--text-green)] rounded-full filter blur-[80px]'></div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        className='typography__text max-w-3xl mx-auto text-center mb-16'>
-        <p>{t("home_page.price.meta_1")}</p>
-        <p>{t("home_page.price.meta_2")}</p>
-      </motion.div>
+      <div className='container mx-auto px-4 relative z-10'>
+        {/* Заголовок */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className='text-center max-w-3xl mx-auto mb-16'>
+          <h2 className='typography__title font-bold text-[var(--text-primary)] mb-6'>
+            <span className='relative inline-block'>
+              {t("home_page.price.title")}
+              <Sparkles className='absolute -top-4 -right-6 w-5 h-5 text-[var(--text-green)]' />
+            </span>
+          </h2>
+          <div className='typography__text text-[var(--text-secondary)]'>
+            <p>{t("home_page.price.meta_1")}</p>
+            <p className='text-[var(--text-green)] font-medium'>{t("home_page.price.meta_2")}</p>
+          </div>
+        </motion.div>
 
-      <motion.div
-        variants={containerVariants}
-        initial='hidden'
-        whileInView='show'
-        viewport={{ once: true, amount: 0.2 }}
-        className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10 place-items-center'>
-        {tariffs.map((tariff, index) => (
+        {/* Карточки */}
+        {tariffs.length > 0 ? (
           <motion.div
-            key={index}
-            variants={cardVariants}
-            className='relative w-full max-w-sm bg-[var(--component-bg)] p-8 rounded-3xl shadow-regular hover:shadow-medium transition-shadow duration-300'>
-            <h2 className='typography__title font-bold mb-4'>{tariff.title}</h2>
+            variants={containerVariants}
+            initial='hidden'
+            whileInView='show'
+            viewport={{ once: true }}
+            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+            {tariffs.map((tariff, index) => (
+              <motion.div
+                key={tariff.id || index}
+                variants={cardVariants}
+                whileHover='hover'
+                className='relative bg-[var(--component-bg)] rounded-2xl overflow-hidden border border-[var(--main-stroke)] hover:border-[var(--text-green)] transition-all'>
+                {/* Акцентная полоса */}
+                <div className='absolute top-0 left-0 w-full h-1 bg-[var(--text-green)]'></div>
 
-            <div className='flex items-center justify-between bg-[var(--white-bg)] rounded-full px-6 py-4 mb-4 border border-[var(--main-stroke)]'>
-              <span className='typography__title'>{tariff.price}</span>
-              <div className='typography__text flex items-center gap-1'>
-                <span className='line-through'>{tariff.oldPrice}</span>
-                <span>{t("home_page.price.period")}</span>
-              </div>
-            </div>
+                <div className='h-full flex flex-col p-8'>
+                  {/* Заголовок карточки */}
+                  <div className='mb-6'>
+                    <h3 className='typography__title font-bold text-[var(--text-primary)] mb-2'>
+                      {tariff.title}
+                    </h3>
+                    {tariff.description && (
+                      <p className='typography__text text-[var(--text-secondary)]'>
+                        {tariff.description}
+                      </p>
+                    )}
+                  </div>
 
-            {tariff.description && (
-              <div className="relative">
-                <div className='flex items-center gap-3 bg-[var(--white-bg)] p-4 rounded-xl border border-dashed border-[var(--main-stroke)] mb-4'>
-                  <img src={PriceCheckMark} alt='check' />
-                  <p className='typography__text'>{tariff.description}</p>
+                  {/* Цена */}
+                  <div className='relative mb-8'>
+                    <div className='bg-[var(--white-bg)] rounded-xl p-5 border border-[var(--main-stroke)]'>
+                      <div className='flex items-end justify-between'>
+                        <span className='typography__title text-[var(--text-green)]'>
+                          {tariff.price}
+                        </span>
+                        {tariff.oldPrice && (
+                          <span className='typography__text text-[var(--text-secondary)] line-through'>
+                            {tariff.oldPrice}
+                          </span>
+                        )}
+                      </div>
+                      <p className='typography__meta text-[var(--text-tertiary)] mt-1'>
+                        {t("home_page.price.period")}
+                      </p>
+                    </div>
+                    <div className='absolute -bottom-3 -left-3 w-6 h-6 bg-[var(--text-green)] rounded-full'></div>
+                  </div>
+
+                  {/* Особенности */}
+                  <ul className='space-y-3 mb-8 flex-grow pl-2'>
+                    {tariff.features?.map((feature, idx) => (
+                      <li key={idx} className='flex items-start gap-3'>
+                        <div className='relative mt-1'>
+                          <Check className='w-5 h-5 text-[var(--text-green)] flex-shrink-0' />
+                        </div>
+                        <span className='typography__text text-[var(--text-primary)]'>
+                          {feature.content}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Кнопка */}
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    className='button button--gradient w-full flex items-center justify-center gap-2 py-4 rounded-lg overflow-hidden relative group'>
+                    <span className='relative z-10'>{t("home_page.price.select")}</span>
+                    <ArrowRight className='w-5 h-5 z-10' />
+                    <div className='absolute inset-0 bg-[var(--button-primary-enabled)] group-hover:bg-[var(--button-primary-click)] transition-colors'></div>
+                  </motion.button>
                 </div>
-
-                <img
-                  src={PriceArrow}
-                  alt='arrow'
-                  className='absolute -bottom-6 -left-12'
-                />
-              </div>
-            )}
-
-            <ul className='typography__text list-disc list-inside space-y-2 mb-6'>
-              {tariff.features.map((feature, idx) => (
-                <li key={idx}>{feature}</li>
-              ))}
-            </ul>
-
-            <button className='button button--gradient w-full'>
-              {t("home_page.price.select")}
-            </button>
+              </motion.div>
+            ))}
           </motion.div>
-        ))}
-      </motion.div>
+        ) : (
+          <div className='typography__text text-center py-12 text-[var(--text-secondary)]'>
+            {t("home_page.price.no_tariffs")}
+          </div>
+        )}
+      </div>
     </section>
   );
 };

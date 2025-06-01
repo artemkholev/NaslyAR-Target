@@ -17,7 +17,7 @@ func GetMainTariffs(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при получении тарифов"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": tariffs})
+	c.JSON(http.StatusOK, tariffs)
 }
 
 // GetAllTariffs возвращает полный список тарифов
