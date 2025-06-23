@@ -15,7 +15,7 @@ const AboutTargetPage = React.lazy(() => import("@/pages/about-target"));
 const TariffPage = React.lazy(() => import("@/pages/pricing-plans/ui/TariffPage"));
 
 const ErrorFallback: React.FC = () => {
-  return <div>Произошла ошибка при загрузке страницы.</div>;
+  return <div>Произошла ошибка при загрузке страницы</div>;
 };
 
 const App: React.FC = () => (

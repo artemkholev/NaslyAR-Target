@@ -1,36 +1,32 @@
-.footer {
-  @apply w-full flex justify-center;
-}
-
-.footer__container {
-  @apply typography__meta flex items-center justify-center py-10 gap-4 max-lg:flex-col max-md:gap-10;
+.content {
+  @apply flex-grow;
 }
 
 /* /////// media requests */
-.footer__container {
+.content {
   @apply w-[1400px];
 }
 
 @media (max-width: 1536px) {
-  .footer {
+  .content {
     max-width: 1000px;
   }
 }
 
 @media (max-width: 1024px) {
-  .footer {
+  .content {
     max-width: 800px;
   }
 }
 
 @media (max-width: 768px) {
-  .footer {
+  .content {
     max-width: 600px;
   }
 }
 
 @media (max-width: 640px) {
-  .footer {
+  .content {
     max-width: 400px;
   }
 }

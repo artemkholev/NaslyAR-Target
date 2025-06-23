@@ -7,7 +7,7 @@ export const Goals = () => {
 
   return (
     <article id='goals' className='page__box flex flex-col items-center gap-10 py-16'>
-      <h1 className='typography__title text-center font-bold text-3xl'>
+      <h1 className='typography__title text-center font-bold'>
         {t("home_page.goals.title")}
       </h1>
       <GoalsList />

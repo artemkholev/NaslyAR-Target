@@ -12,7 +12,7 @@ export const Request = () => {
   return (
     <section
       id='request'
-      className='flex flex-col items-center justify-center py-16  gap-5 shadow-lg'>
+      className='flex flex-col items-center justify-center py-16  gap-5'>
       <motion.h1
         className='typography__title text-center font-semibold text-2xl text-black max-w-2xl px-6'
         variants={fadeIn}

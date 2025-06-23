@@ -15,18 +15,18 @@ const GoalCard = ({ goal, onClick }: { goal: Goal; onClick: (goal: Goal) => void
     <div
       onClick={() => onClick(goal)}
       className={`
-        flex flex-col justify-between p-6 h-56 cursor-pointer
+        flex flex-col justify-between p-6 h-[250px] cursor-pointer
         border border-[var(--main-stroke)] rounded-2xl
         bg-white shadow-regular hover:shadow-medium
         transition-shadow duration-200
       `}>
       <div className='flex justify-between items-start'>
-        <span className='text-xl font-semibold text-[var(--text-primary)]'>{goal.text}</span>
-        <span className='text-3xl'>{goal.icon}</span>
+        <span className='typography__title font-bold'>{goal.text}</span>
+        <span className='text-2xl'>{goal.icon}</span>
       </div>
       <div className='mt-auto pt-4'>
-        <span className='block text-sm text-[var(--text-secondary)] mb-1'>Количество</span>
-        <span className='text-2xl font-bold text-[var(--text-primary)]'>{goal.amount}</span>
+        <span className='block typography__text mb-1'>Количество</span>
+        <span className='typography__title font-bold'>{goal.amount}</span>
       </div>
     </div>
   );
@@ -103,7 +103,7 @@ export const GoalsList = () => {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent className='typography__text text-[var(--text-secondary)] text-base'>
+        <DialogContent className='typography__text'>
           <p>{selectedGoal && getGoalDescription(selectedGoal)}</p>
         </DialogContent>
       </Dialog>

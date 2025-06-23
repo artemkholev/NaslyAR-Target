@@ -74,8 +74,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='form'>
-      {/* Поле для ввода email */}
+    <form onSubmit={handleSubmit} className='form w-[400px]'>
       <Input
         type='email'
         placeholder='Email'
@@ -85,7 +84,6 @@ export const LoginForm = () => {
         error={fieldErrors.email}
       />
 
-      {/* Поле для ввода пароля */}
       <Input
         type='password'
         placeholder='Пароль'
@@ -95,10 +93,8 @@ export const LoginForm = () => {
         error={fieldErrors.password}
       />
 
-      {/* Вывод ошибок */}
-      {errorMessage && <div className='!w-[300px] mb-4 text-red-500'>{errorMessage}</div>}
+      {errorMessage && <div className='w-[300px] mb-4 text-red-500'>{errorMessage}</div>}
 
-      {/* Кнопка входа */}
       <button type='submit' disabled={isLoggingIn} className='button button--gradient w-full'>
         {isLoggingIn ? "Входим..." : "Войти"}
       </button>

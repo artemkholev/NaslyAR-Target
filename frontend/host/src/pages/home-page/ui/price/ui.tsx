@@ -55,7 +55,7 @@ export const Price = () => {
   };
 
   return (
-    <section id='price' className='relative py-24 bg-[var(--main-bg)] overflow-hidden'>
+    <section id='price' className='relative py-24 overflow-hidden'>
       {/* Декоративные элементы */}
       <div className='absolute inset-0 overflow-hidden opacity-10 pointer-events-none'>
         <div className='absolute top-20 left-10 w-64 h-64 bg-[var(--text-green)] rounded-full filter blur-[80px]'></div>
@@ -69,13 +69,13 @@ export const Price = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className='text-center max-w-3xl mx-auto mb-16'>
-          <h2 className='typography__title font-bold text-[var(--text-primary)] mb-6'>
+          <h2 className='typography__title font-bold mb-6'>
             <span className='relative inline-block'>
               {t("home_page.price.title")}
               <Sparkles className='absolute -top-4 -right-6 w-5 h-5 text-[var(--text-green)]' />
             </span>
           </h2>
-          <div className='typography__text text-[var(--text-secondary)]'>
+          <div className='typography__text'>
             <p>{t("home_page.price.meta_1")}</p>
             <p className='text-[var(--text-green)] font-medium'>{t("home_page.price.meta_2")}</p>
           </div>
@@ -101,11 +101,11 @@ export const Price = () => {
                 <div className='h-full flex flex-col p-8'>
                   {/* Заголовок карточки */}
                   <div className='mb-6'>
-                    <h3 className='typography__title font-bold text-[var(--text-primary)] mb-2'>
+                    <h3 className='typography__title font-bold mb-2'>
                       {tariff.title}
                     </h3>
                     {tariff.description && (
-                      <p className='typography__text text-[var(--text-secondary)]'>
+                      <p className='typography__text'>
                         {tariff.description}
                       </p>
                     )}
@@ -124,7 +124,7 @@ export const Price = () => {
                           </span>
                         )}
                       </div>
-                      <p className='typography__meta text-[var(--text-tertiary)] mt-1'>
+                      <p className='typography__meta mt-1'>
                         {t("home_page.price.period")}
                       </p>
                     </div>
@@ -138,7 +138,7 @@ export const Price = () => {
                         <div className='relative mt-1'>
                           <Check className='w-5 h-5 text-[var(--text-green)] flex-shrink-0' />
                         </div>
-                        <span className='typography__text text-[var(--text-primary)]'>
+                        <span className='typography__text'>
                           {feature.content}
                         </span>
                       </li>
@@ -159,8 +159,8 @@ export const Price = () => {
             ))}
           </motion.div>
         ) : (
-          <div className='typography__text text-center py-12 text-[var(--text-secondary)]'>
-            {t("home_page.price.no_tariffs")}
+          <div className='typography__text text-center py-12'>
+            Тарифы не найдены
           </div>
         )}
       </div>

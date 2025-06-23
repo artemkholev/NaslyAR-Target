@@ -2,45 +2,44 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { LoginForm } from "@/widgets/login-form";
 import { RegisterForm } from "@/widgets/register-form";
+import { AppRoutes } from "@/app/router";
+import "../../../app/css/index.css";
+
+enum formType {
+  LOGIN = "login",
+  REGISTER = "register",
+}
 
 const AuthPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [activeForm, setActiveForm] = useState<"login" | "register">(
-    location.pathname === "/auth/register" ? "register" : "login"
+  const [activeForm, setActiveForm] = useState<formType>(
+    location.pathname === `${AppRoutes.AUTH}/${formType.REGISTER}`
+      ? formType.REGISTER
+      : formType.LOGIN
   );
 
-  const handleFormChange = (formType: "login" | "register") => {
+  const handleFormChange = (formType: formType) => {
     setActiveForm(formType);
-    navigate(`/auth/${formType}`);
+    navigate(`${AppRoutes.AUTH}/${formType}`);
   };
 
   return (
     <div className='page'>
-      <div className='page__container justify-center items-center'>
-        <div className="!w-80 flex flex-col gap-8 justify-center items-center">
-          <div className='flex flex-row gap-8'>
-            <button
-              className={`button ${
-                activeForm === "login"
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-              onClick={() => handleFormChange("login")}>
-              Войти
-            </button>
-            <button
-              className={`button ${
-                activeForm === "register"
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-              onClick={() => handleFormChange("register")}>
-              Зарегистрироваться
-            </button>
-          </div>
-          {activeForm === "login" ? <LoginForm /> : <RegisterForm />}
+      <div className='page__container'>
+        <div className='flex flex-row justify-center gap-6'>
+          <button
+            className={`${activeForm === formType.LOGIN ? "button bg-green-800" : "button"}`}
+            onClick={() => handleFormChange(formType.LOGIN)}>
+            Войти
+          </button>
+          <button
+            className={`${activeForm === formType.REGISTER ? "button bg-green-800" : "button"}`}
+            onClick={() => handleFormChange(formType.REGISTER)}>
+            Зарегистрироваться
+          </button>
         </div>
+        {activeForm === formType.LOGIN ? <LoginForm /> : <RegisterForm />}
       </div>
     </div>
   );

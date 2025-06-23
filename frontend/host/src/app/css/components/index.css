@@ -2,11 +2,15 @@
 @import "./_body.css";
 @import "./_box.css";
 @import "./_page.css";
-@import "./_header.css";
-@import "./_footer.css";
-@import "./_sidebar.css";
 @import "./_form.css";
-@import "./_button.css"
+@import "./_button.css";
+@import "./_input.css";
+
+/* page structure */
+@import "./_header.css";
+@import "./_sidebar.css";
+@import "./_content.css";
+@import "./_footer.css";
 
 /* material ui components */
 /* @import "./_wizard.css"; */

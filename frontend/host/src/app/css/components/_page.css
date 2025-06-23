@@ -1,13 +1,18 @@
 .page {
-  @apply w-full h-full overflow-y-auto relative;
-  @apply flex flex-col justify-between items-center;
+  @apply h-full;
+  @apply flex justify-center items-center;
+  /* Для современных браузеров */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+/* Скрываем скроллбар в WebKit (Chrome/Safari) */
+.page::-webkit-scrollbar {
+  display: none;
 }
 
 .page__container {
-  @apply h-full flex flex-auto flex-col gap-4 relative;
-  overflow-x: hidden;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  @apply relative h-full flex flex-col gap-4;
 }
 
 .page__box {
@@ -26,33 +31,4 @@
 
 .page__header--default {
   @apply flex items-center absolute right-4;
-}
-
-/* /////// media requests */
-.page__container {
-  @apply w-[1400px];
-}
-
-@media (max-width: 1536px) {
-  .page__container {
-    max-width: 1000px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .page__container {
-    max-width: 800px;
-  }
-}
-
-@media (max-width: 768px) {
-  .page__container {
-    max-width: 600px;
-  }
-}
-
-@media (max-width: 640px) {
-  .page__container {
-    max-width: 400px;
-  }
 }

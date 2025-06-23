@@ -1,5 +1,5 @@
 .header {
-  @apply flex justify-center z-[50] pt-[20px] pb-[80px];
+  @apply flex justify-center z-[50] pt-[20px] mb-10;
 }
 
 .header__container {

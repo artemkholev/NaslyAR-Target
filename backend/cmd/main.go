@@ -39,6 +39,7 @@ func main() {
 	// Настройка статических файлов
 	r.Static("/assets", "./public/assets")
 	r.Static("/uploads", "./uploads")
+	r.LoadHTMLGlob("templates/*.html") 
 
 	// Middleware
 	configureMiddleware(r)

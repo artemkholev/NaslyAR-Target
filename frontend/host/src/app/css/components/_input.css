@@ -1,0 +1,85 @@
+/* Базовые стили для всех input элементов */
+input {
+  @apply w-full px-4 py-2.5 !rounded-lg border 
+         text-green-1000 placeholder-green-400
+         bg-white focus:outline-none
+         transition-all duration-200 ease-in-out;
+}
+
+/* Стандартное состояние */
+input:not([type="checkbox"], [type="radio"]) {
+  @apply border-green-300 focus:border-green-500 focus:ring-2 focus:ring-green-200;
+}
+
+/* Состояние ошибки */
+input.error {
+  @apply border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100;
+}
+
+/* Отключенное состояние */
+input:disabled {
+  @apply bg-green-50 border-green-200 cursor-not-allowed;
+}
+
+/* Специфичные типы input */
+input[type="checkbox"] {
+  @apply w-5 h-5 rounded border-green-300 
+         text-green-600 focus:ring-green-500 
+         cursor-pointer;
+}
+
+input[type="radio"] {
+  @apply w-5 h-5 border-green-300 
+         text-green-600 focus:ring-green-500;
+}
+
+/* Стили для label */
+.input-label {
+  @apply block text-sm font-medium text-green-800 mb-1.5;
+}
+
+/* Контейнер для input с иконкой */
+.input-container {
+  @apply relative;
+}
+
+.input-with-icon {
+  @apply pl-10; /* Отступ для иконки */
+}
+
+.input-icon {
+  @apply absolute left-3 top-1/2 transform -translate-y-1/2 
+         text-green-400 pointer-events-none;
+}
+
+/* Варианты размеров */
+.input-sm {
+  @apply py-1.5 text-sm;
+}
+
+.input-lg {
+  @apply py-3 text-lg;
+}
+
+/* Кастомный файловый input */
+.input-file {
+  @apply hidden;
+}
+
+.input-file-label {
+  @apply flex items-center justify-center px-4 py-8 
+         border-2 border-dashed border-green-300 rounded-lg
+         bg-green-50 text-green-600 cursor-pointer
+         hover:bg-green-100 hover:border-green-400
+         transition-colors duration-200;
+}
+
+/* Стили для textarea (по аналогии) */
+textarea {
+  @apply w-full px-4 py-2.5 rounded-lg border border-green-300
+         text-green-1000 placeholder-green-400
+         bg-white focus:outline-none focus:border-green-500 
+         focus:ring-2 focus:ring-green-200
+         transition-all duration-200 ease-in-out
+         min-h-[100px];
+}

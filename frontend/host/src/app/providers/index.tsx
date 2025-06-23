@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { SnackbarProvider } from "notistack";
 import StoreProvider from "@/app/providers/StoreProvider";
 import I18nProvider from "@/app/providers/I18nProvider";
@@ -13,6 +14,18 @@ export const withProviders = <P extends Record<string, unknown>>(App: React.Comp
           <BrowserRouter>
             <AuthProvider>
               <App {...props} />
+              <ToastContainer
+                position='bottom-right'
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme='colored'
+              />
             </AuthProvider>
           </BrowserRouter>
         </SnackbarProvider>

@@ -42,6 +42,12 @@ func SetupRoutes(r *gin.Engine) {
 			requestsGroup.DELETE("/:id", controllers.DeleteRequest)
 		}
 
+		// Заявки на тарифы
+		requestsTariffsGroup := apiGroup.Group("/requests/tariffs")
+		{
+			requestsTariffsGroup.POST("/", controllers.CreateRequest)
+		}
+
 		// Пользователь
 		usersGroup := apiGroup.Group("/users")
 		{

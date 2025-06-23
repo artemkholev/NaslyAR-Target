@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "host/useAuth";
 import { validateEmail, validatePassword } from "@/shared/lib/validatiion";
-import { IResponse } from "@/entities/auth"; 
+import { IResponse } from "@/entities/auth";
 import { AppRoutes } from "@/app/router";
 import Input from "host/Input";
 
@@ -82,7 +82,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='form'>
+    <form onSubmit={handleSubmit} className='form w-[400px]'>
       {errorMessage && <div className='mb-4 p-3 text-red-500'>{errorMessage}</div>}
 
       <Input
@@ -112,7 +112,7 @@ export const RegisterForm = () => {
         error={fieldErrors.confirmPassword}
       />
 
-      <div className='flex mt-4 gap-2 items-start'>
+      <div className='flex mt-4 gap-2 items-center'>
         <input
           type='checkbox'
           id='terms'
@@ -121,8 +121,8 @@ export const RegisterForm = () => {
           disabled={isRegistering}
           className='mt-1'
         />
-        <label htmlFor='terms' className='text-sm'>
-          Я принимаю{" "}
+        <label htmlFor='terms' className='flex gap-1 text-sm'>
+          <span>Я принимаю</span>
           <a href={AppRoutes.PRIVACY_POLICY} className='text-blue-500 hover:underline'>
             условия использования
           </a>

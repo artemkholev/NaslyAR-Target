@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"backend/configs"
+	"backend/internal/app/constants"
 	"backend/internal/app/models"
 	"backend/internal/app/repositories"
 	"backend/pkg/utils/email"
@@ -14,12 +15,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator"
 	"github.com/google/uuid"
-)
-
-const (
-	PENDING          = "В ожидании"
-	UNDER_PROCESSING = "В обработке"
-	CLOSED           = "Закрыто"
 )
 
 // CreateRequest создает новый запрос
@@ -65,7 +60,7 @@ func CreateRequest(c *gin.Context) {
 		Niche:       input.Niche,
 		Title:       input.Title,
 		Description: input.Description,
-		Status:      PENDING,
+		Status:      constants.Pending,
 	}
 
 	if err := configs.DB.Create(&request).Error; err != nil {
@@ -108,7 +103,7 @@ func ChangeRequestStatus(c *gin.Context) {
 	}
 
 	// Проверяем, что статус имеет корректное значение
-	validStatuses := []string{PENDING, UNDER_PROCESSING, CLOSED}
+	validStatuses := []string{constants.Pending, constants.UnderProcessing, constants.Closed}
 	if !contains(validStatuses, input.Status) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Некорректный статус",

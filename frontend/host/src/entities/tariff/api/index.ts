@@ -33,3 +33,14 @@ export async function fetchTariffById(id: string): Promise<Tariff> {
     throw new Error("Failed to fetch tariff");
   }
 }
+
+// Заявка на тариф по ID
+export async function postTariff(id: string): Promise<Tariff> {
+  try {
+    const { data } = await baseApi.post(`/requests/tariffs`, id);
+    return data;
+  } catch (error) {
+    console.error(`Failed to post tariff with id ${id}`, error);
+    throw new Error("Failed to post tariff");
+  }
+}

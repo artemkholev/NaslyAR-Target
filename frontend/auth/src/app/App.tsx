@@ -1,14 +1,9 @@
-import "./css/index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { AuthPage } from "@/pages/auth-page";
 
 const App: React.FC = () => {
-  return (
-    <div className="">
-      <AuthPage />
-    </div>
-  );
+  return <AuthPage />;
 };
 
 // Получаем корневой элемент

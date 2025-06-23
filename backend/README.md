@@ -6,3 +6,6 @@ go run cmd/main.go
 
 - Используем dumb admin.pdsql
 - Загружем через PSQL tool -- ***\i ~/Desktop/admin.pgsql***
+
+### Создание токена для рассылки по почте
+- https://myaccount.google.com/apppasswords

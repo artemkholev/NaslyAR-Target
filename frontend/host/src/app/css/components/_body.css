@@ -1,5 +1,5 @@
 html, body {
-  @apply h-full w-full;
+  @apply h-screen w-screen;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -13,5 +13,5 @@ body::-webkit-scrollbar {
 }
 
 div#app {
-  @apply h-screen w-full flex flex-col container mx-auto;
+  @apply h-full w-full;
 }

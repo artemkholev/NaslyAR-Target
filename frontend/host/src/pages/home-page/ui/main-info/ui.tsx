@@ -51,7 +51,7 @@ export const MainInfo: React.FC = () => {
       {/* Основной текст и кнопка */}
       <section className='text-center max-w-3xl py-12 px-4 animate-fade-in-up'>
         <h1 className='typography__title font-bold mb-4'>{t("home_page.main_info.title")}</h1>
-        <p className='typography__text text-gray-500 mb-6'>
+        <p className='typography__text mb-6'>
           {t("home_page.main_info.description")}
         </p>
         <Link to={AppRoutes.ABOUT_TARGET}>
@@ -66,7 +66,7 @@ export const MainInfo: React.FC = () => {
         {cards.map(({ Icon, i18nKey, className, iconColor }, idx) => (
           <div
             key={idx}
-            className={`absolute ${className} bg-white/80 backdrop-blur-md shadow-lg rounded-full flex items-center gap-4 px-6 py-4 h-20 transition-transform duration-300 hover:scale-105 animate-fade-in-up`}>
+            className={`absolute ${className} bg-white backdrop-blur-md shadow-lg rounded-full flex items-center gap-4 px-6 py-4 h-20 transition-transform duration-300 hover:scale-105 animate-fade-in-up`}>
             <Icon size={28} className={iconColor} />
             <span className='typography__text font-medium'>{t(i18nKey)}</span>
           </div>

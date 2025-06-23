@@ -33,7 +33,7 @@ const Input: React.FC<InputProps> = ({ type = "text", label, error, icon, ...pro
         <input
           {...props}
           type={type === "password" && showPassword ? "text" : type} // Переключение типа для пароля
-          className={`w-full px-4 py-2 border ${
+          className={`input ${
             error ? "border-red-500" : "border-gray-300"
           } rounded-[10px] focus:outline-none focus:ring-1 ${
             error

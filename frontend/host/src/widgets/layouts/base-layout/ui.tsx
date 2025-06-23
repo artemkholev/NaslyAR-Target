@@ -6,15 +6,13 @@ import { Footer } from "@/widgets/footer";
 
 export const BaseLayout: React.FC = () => {
   return (
-    <>
+    <div className='h-full flex flex-col items-center'>
       {/* <Sidebar /> */}
-      <div className='flex flex-col flex-grow'>
-        <Header />
-        <main className='main h-full'>
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
-    </>
+      <Header />
+      <main className='content'>
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
   );
 };

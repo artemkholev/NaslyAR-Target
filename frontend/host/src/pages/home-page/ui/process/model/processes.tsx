@@ -32,9 +32,9 @@ const ProcessCard = ({ process }: { process: ProcessItem }) => {
       whileHover={{ scale: 1.03, y: -5 }}
       className='relative mb-20'>
       {/* Точка и линия */}
-      <div className='absolute top-6 md:top-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center'>
+      <div className='absolute top-6 md:top-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center max-lg:hidden'>
         <div
-          className='w-12 h-12 rounded-full flex items-center justify-center font-bold text-white shadow-lg'
+          className='typography__title w-12 h-12 rounded-full flex items-center justify-center font-bold !text-white shadow-lg'
           style={{ backgroundColor: "#639149" }}>
           {process.id + 1}
         </div>
@@ -44,8 +44,8 @@ const ProcessCard = ({ process }: { process: ProcessItem }) => {
       {/* Карточка */}
       <div
         className={clsx(
-          "absolute md:static px-4 w-full md:w-auto",
-          isLeft ? "mr-[500px]" : "ml-[500px]"
+          "absolute md:static px-8 md:w-auto",
+          isLeft ? "mr-[540px] max-lg:mr-[350px]" : "ml-[540px] max-lg:ml-[350px]"
         )}>
         <div
           className='p-8 rounded-3xl shadow-md flex items-center gap-4'
@@ -58,7 +58,7 @@ const ProcessCard = ({ process }: { process: ProcessItem }) => {
           <div className='p-4 rounded-full' style={{ backgroundColor: "#8aab55" }}>
             <process.Icon size={40} className='text-white' />
           </div>
-          <p className='text-lg font-semibold max-w-xs leading-relaxed'>{process.text}</p>
+          <p className='typography__text font-semibold max-w-xs leading-relaxed'>{process.text}</p>
         </div>
       </div>
     </motion.div>
@@ -96,19 +96,12 @@ export const ProcessesList = () => {
   ];
 
   return (
-    <section
-      className='max-w-5xl mx-auto px-6 py-16'
-      style={{ backgroundColor: "#fefef4" /* green.10 */ }}>
-      <div className='relative'>
-        {/* Вертикальная линия посередине */}
-        <div
-          className='hidden md:block absolute top-10 bottom-10 left-1/2 -translate-x-1/2 w-1 bg-[#7da662] rounded'
-          style={{ backgroundColor: "#7da662" /* green.100 */ }}
-        />
-        {processes.map((process) => (
-          <ProcessCard key={process.id} process={process} />
-        ))}
-      </div>
+    <section className='relative'>
+      {/* Вертикальная линия посередине */}
+      <div className='block absolute top-10 bottom-10 left-1/2 -translate-x-1/2 w-1 bg-[#7da662] rounded max-md:flex max-md:flex-col max-lg:hidden' />
+      {processes.map((process) => (
+        <ProcessCard key={process.id} process={process} />
+      ))}
     </section>
   );
 };
